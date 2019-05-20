@@ -12,6 +12,48 @@ namespace Ex03.GarageLogic
         protected float m_MaximumFuelAmount;
         protected eFuelType m_FuelType;
 
+        public eFuelType FuelType
+        {
+            get
+            {
+
+                return m_FuelType;
+            }
+
+            set
+            {
+                m_FuelType = value;
+            }
+        }
+
+        public float MaximumFuelAmount
+        {
+            get
+            {
+
+                return m_MaximumFuelAmount;
+            }
+
+            set
+            {
+                m_MaximumFuelAmount = value;
+            }
+        }
+
+        public float CurrentFuelAmount
+        {
+            get
+            {
+
+                return m_CurrentFuelAmount;
+            }
+
+            set
+            {
+                m_CurrentFuelAmount = value;
+            }
+        }
+
         public void Refuel(float i_AmountOfFuelToAdd, eFuelType i_FuelTypeToAdd)
         {
             // TODO: add exceptions

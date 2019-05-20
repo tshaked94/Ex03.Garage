@@ -51,6 +51,7 @@
     <Compile Include="Utilities.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="Tire.cs" />
+    <Compile Include="VehicleAllocator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
