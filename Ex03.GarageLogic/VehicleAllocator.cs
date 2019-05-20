@@ -6,6 +6,13 @@ namespace Ex03.GarageLogic
 {
     class VehicleAllocator
     {
-
+        public enum eVehicleTypes
+        {
+            EnginedCar =1,
+            ElectricCar,
+            EnginedMotorbike,
+            ElectricMotorbike,
+            Truck
+        }
     }
 }

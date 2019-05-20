@@ -11,7 +11,7 @@ namespace Ex03.GarageLogic
         protected float m_EnergyPercentage;
         protected List<Tire> m_VehicleTires = new List<Tire>();
 
-        protected List<Tire> VehicleTires
+        public List<Tire> Tires
         {
             get
             {
@@ -20,7 +20,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        protected float EnergyPercentage
+        public float EnergyPercentage
         {
             get
             {
@@ -34,7 +34,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        protected string LicenseNumber
+        public string LicenseNumber
         {
             get
             {
@@ -48,7 +48,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        protected string ModelName
+        public string ModelName
         {
             get
             {

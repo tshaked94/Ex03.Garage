@@ -10,8 +10,15 @@ namespace Ex03.GarageLogic
 
         private string m_OwnerName;
         private string m_OwnerPhoneNumber;
-        private eVehicleStatus m_VehicleStatus;
         private Vehicle m_OwnerVehicle;
+        private eVehicleStatus m_VehicleStatus = eVehicleStatus.Repairing;
+
+        public Customer(string i_OwnerName, string i_OwnerPhone, Vehicle i_Vehicle)
+        {
+            m_OwnerName = i_OwnerName;
+            m_OwnerPhoneNumber = i_OwnerPhone;
+            m_OwnerVehicle = i_Vehicle;
+        }
 
         public Vehicle Vehicle
         {

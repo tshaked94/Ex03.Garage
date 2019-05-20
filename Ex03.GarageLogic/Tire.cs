@@ -10,6 +10,34 @@ namespace Ex03.GarageLogic
         private float m_CurrentPressure;
         private float m_MaximumPressure;
 
+        public float MaximumPressure
+        {
+            get
+            {
+
+                return m_MaximumPressure;
+            }
+
+            set
+            {
+                m_MaximumPressure = value;
+            }
+        }
+
+        public float CurrentPressure
+        {
+            get
+            {
+
+                return m_CurrentPressure;
+            }
+
+            set
+            {
+                m_CurrentPressure = value;
+            }
+        }
+
         public Tire(float i_MaximumTirePressure)
         {
             m_MaximumPressure = i_MaximumTirePressure;
