@@ -33,6 +33,82 @@ namespace Ex03.GarageLogic
             }
         }
 
+        private float ToHour(float i_AmountOfMinutes)
+        {
+            float minutesConvertedToHours;
+
+            minutesConvertedToHours = i_AmountOfMinutes / 60;
+
+            return minutesConvertedToHours;
+        }
+
+        public void ShowAllCustomerDetails()
+        {
+            string licenseNumber;
+            bool isCustomerFound;
+            Customer customerToShowDetail;
+
+            licenseNumber = m_UI.RequestLicenseNumber();
+            isCustomerFound = m_Customers.TryGetValue(licenseNumber.GetHashCode(), out customerToShowDetail);
+            m_UI.ShowAllCustomerDetails(customerToShowDetail);
+        }
+
+        public void ChargeElectricVehicle()
+        {
+            string licenseNumber;
+            float amountOfMinutesToCharge;
+            Customer customer;
+            bool isCustomerFound;
+
+            licenseNumber = m_UI.RequestLicenseNumber();
+            isCustomerFound = m_Customers.TryGetValue(licenseNumber.GetHashCode(), out customer);
+            if (isCustomerFound)
+            {
+                if (customer.Vehicle is ElectricVehicle)
+                {
+                    amountOfMinutesToCharge = m_UI.AskUserForAmountOfMinutesToCharge();
+                    (customer.Vehicle as ElectricVehicle).Charge(ToHour(amountOfMinutesToCharge));
+                }
+                else
+                {
+                    m_UI.InvalidVehicleEngineType();
+                }
+            }
+            else
+            {
+                m_UI.VehicleDoesNotExist();
+            }
+        }
+
+        public void FuelEnginedVehicle()
+        {
+            string licenseNumber;
+            float amountOfFuelToAdd;
+            EnginedCar.eFuelType fuelType;
+            Customer customer;
+            bool isCustomerFound;
+
+            licenseNumber = m_UI.RequestLicenseNumber();
+            isCustomerFound = m_Customers.TryGetValue(licenseNumber.GetHashCode(), out customer);
+            if(isCustomerFound)
+            {
+                if(customer.Vehicle is EnginedVehicle)
+                {
+                    amountOfFuelToAdd = m_UI.AskUserForAmountOfFuelToAdd();
+                    fuelType = m_UI.AskUserForFuelTypeToAdd();
+                    (customer.Vehicle as EnginedVehicle).Refuel(amountOfFuelToAdd, fuelType);
+                }
+                else
+                {
+                    m_UI.InvalidVehicleEngineType();
+                }
+            }
+            else
+            {
+                m_UI.VehicleDoesNotExist();
+            }
+        }
+
         public void ChangeCustomerVehicleStatus()
         {
             Customer.eVehicleStatus newVehicleStatus;
@@ -127,7 +203,7 @@ namespace Ex03.GarageLogic
             return newCustomer;
         }
 
-        public List<Customer> Customers
+        public Dictionary<int, Customer> Customers
         {
             get
             {

@@ -60,5 +60,11 @@ namespace Ex03.GarageLogic
                 m_ModelName = value;
             }
         }
+
+        public int HashCode()
+        {
+            // TODO:Check if needed.
+            return m_LicenseNumber.GetHashCode();
+        }
     }
 }
