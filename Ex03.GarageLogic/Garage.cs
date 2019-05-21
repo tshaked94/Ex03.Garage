@@ -1,36 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Ex03.ConsoleUI;
 
 namespace Ex03.GarageLogic
 {
     public class Garage
     {
         private Dictionary<int, Customer> m_Customers;
-        private UI m_UI = new UI();
 
-        public void InflateVehicleTires()
+        public void InflateVehicleTiresToMaximum(string i_LicenseNumber)
         {
-            string licenseNumberOfVehicleToInflate;
-            int hashCode;
-            bool isVehicleFound;
-            Customer customer;
+            foreach(Tire tire in m_Customers[i_LicenseNumber.GetHashCode()].Vehicle.Tires)
+            {
+                tire.Inflate(tire.MaximumPressure - tire.CurrentPressure);
+            }
+        }
 
-            licenseNumberOfVehicleToInflate = m_UI.RequestLicenseNumber();
-            hashCode = licenseNumberOfVehicleToInflate.GetHashCode();
-            isVehicleFound = m_Customers.TryGetValue(hashCode, out customer);
-            if(isVehicleFound)
-            {
-                foreach(Tire tire in customer.Vehicle.Tires)
-                {
-                    tire.Inflate(tire.MaximumPressure - tire.CurrentPressure);
-                }
-            }
-            else
-            {
-                m_UI.VehicleDoesNotExist();
-            }
+        public void AddNewCustomer(string i_OwnerName, string i_OwnerPhoneNumber, Vehicle i_VehicleCreated)
+        {
+            Customer newCustomer;
+            int hashCode;
+
+            newCustomer = new Customer(i_OwnerName, i_OwnerPhoneNumber, i_VehicleCreated);
+            hashCode = i_VehicleCreated.LicenseNumber.GetHashCode();
+            m_Customers.Add(hashCode, newCustomer);
+        }
+
+        public void ChangeVehicleStatus(string i_LicenseNumber, Customer.eVehicleStatus i_VehicleStatusToChange)
+        {
+            m_Customers[i_LicenseNumber.GetHashCode()].VehicleStatus = i_VehicleStatusToChange;
         }
 
         private float ToHour(float i_AmountOfMinutes)
@@ -42,165 +40,45 @@ namespace Ex03.GarageLogic
             return minutesConvertedToHours;
         }
 
-        public void ShowAllCustomerDetails()
+        public LinkedList<string> ShowLicenseNumbersByFilter(Customer.eVehicleStatus i_VehicleStatusFilter)
         {
-            string licenseNumber;
-            bool isCustomerFound;
-            Customer customerToShowDetail;
-
-            licenseNumber = m_UI.RequestLicenseNumber();
-            isCustomerFound = m_Customers.TryGetValue(licenseNumber.GetHashCode(), out customerToShowDetail);
-            m_UI.ShowAllCustomerDetails(customerToShowDetail);
-        }
-
-        public void ChargeElectricVehicle()
-        {
-            string licenseNumber;
-            float amountOfMinutesToCharge;
-            Customer customer;
-            bool isCustomerFound;
-
-            licenseNumber = m_UI.RequestLicenseNumber();
-            isCustomerFound = m_Customers.TryGetValue(licenseNumber.GetHashCode(), out customer);
-            if (isCustomerFound)
+            LinkedList<string> listOFNumbersToShow = new LinkedList<string>();
+            
+            foreach(Customer customer in m_Customers.Values)
             {
-                if (customer.Vehicle is ElectricVehicle)
+                if(customer.VehicleStatus == i_VehicleStatusFilter)
                 {
-                    amountOfMinutesToCharge = m_UI.AskUserForAmountOfMinutesToCharge();
-                    (customer.Vehicle as ElectricVehicle).Charge(ToHour(amountOfMinutesToCharge));
-                }
-                else
-                {
-                    m_UI.InvalidVehicleEngineType();
+                    listOFNumbersToShow.AddFirst(customer.Vehicle.LicenseNumber);
                 }
             }
-            else
-            {
-                m_UI.VehicleDoesNotExist();
-            }
+
+            return listOFNumbersToShow;
         }
 
-        public void FuelEnginedVehicle()
+        public LinkedList<string> ShowAllLicenseNumbers()
         {
-            string licenseNumber;
-            float amountOfFuelToAdd;
-            EnginedCar.eFuelType fuelType;
-            Customer customer;
-            bool isCustomerFound;
+            LinkedList<string> listOFNumbersToShow = new LinkedList<string>();
 
-            licenseNumber = m_UI.RequestLicenseNumber();
-            isCustomerFound = m_Customers.TryGetValue(licenseNumber.GetHashCode(), out customer);
-            if(isCustomerFound)
+            foreach (Customer customer in m_Customers.Values)
             {
-                if(customer.Vehicle is EnginedVehicle)
-                {
-                    amountOfFuelToAdd = m_UI.AskUserForAmountOfFuelToAdd();
-                    fuelType = m_UI.AskUserForFuelTypeToAdd();
-                    (customer.Vehicle as EnginedVehicle).Refuel(amountOfFuelToAdd, fuelType);
-                }
-                else
-                {
-                    m_UI.InvalidVehicleEngineType();
-                }
+                listOFNumbersToShow.AddFirst(customer.Vehicle.LicenseNumber);
             }
-            else
-            {
-                m_UI.VehicleDoesNotExist();
-            }
+
+            return listOFNumbersToShow;
         }
 
-        public void ChangeCustomerVehicleStatus()
+        public void ChangeCustomerVehicleStatus(string i_LicenseNumberOfVehicle, Customer.eVehicleStatus i_NewVehicleStatus)
         {
-            Customer.eVehicleStatus newVehicleStatus;
-            Customer customer;
-            string licenseNumberOfVehicle;
-            int hashCode;
-            bool isVehicleFound;
-
-            licenseNumberOfVehicle = m_UI.RequestLicenseNumber();
-            hashCode = licenseNumberOfVehicle.GetHashCode();
-            isVehicleFound = m_Customers.TryGetValue(hashCode, out customer);
-            if(isVehicleFound)
-            {
-                newVehicleStatus = m_UI.RequestNewVehicleStatus();
-                customer.VehicleStatus = newVehicleStatus;
-            }
-            else
-            {
-                m_UI.VehicleDoesNotExist();
-            }
+            m_Customers[i_LicenseNumberOfVehicle.GetHashCode()].VehicleStatus = i_NewVehicleStatus;
         }
 
-        public void ShowLicenseNumbers()
-        {
-            Customer.eVehicleStatus vehicleStatusFilter;
-            bool isFilterRequired;
-
-            isFilterRequired = m_UI.AskUserIfHeWantToFilterLicenseNumberByStatus();
-            if (isFilterRequired)
-            {
-                vehicleStatusFilter = m_UI.RequestStatusFilter();
-                foreach (KeyValuePair<int,Customer> customer in m_Customers)
-                {
-                    if (customer.Value.VehicleStatus == vehicleStatusFilter)
-                    {
-                        m_UI.ShowLicenseNumber(customer.Value.Vehicle.LicenseNumber);
-                    }
-                }
-            }
-            else
-            {
-                foreach(KeyValuePair<int, Customer> customer in m_Customers)
-                {
-                    m_UI.ShowLicenseNumber(customer.Value.Vehicle.LicenseNumber);
-                }
-            }
-        }
-
-        public void AddNewVehicle()
-        {
-            bool isVehicleAlreadyInTheGarage;
-            string licenseNumber;
-            Customer newCustomer;
-            int hashCode;
-
-            licenseNumber = m_UI.RequestLicenseNumber();
-            isVehicleAlreadyInTheGarage = isVehicleInGarage(licenseNumber);
-            if (isVehicleAlreadyInTheGarage)
-            {
-                m_UI.InformUserVehicleIsAlreadyInTheGarage();
-            }
-            else
-            {
-                newCustomer = createCustomer();
-                hashCode = newCustomer.Vehicle.LicenseNumber.GetHashCode();
-                m_Customers.Add(hashCode, newCustomer);
-            }
-        }
-
-        private bool isVehicleInGarage(string i_LicenseNumber)
+        public bool isVehicleInGarage(string i_LicenseNumber)
         {
             bool isVehicleFound = false;
 
             isVehicleFound = m_Customers.ContainsKey(i_LicenseNumber.GetHashCode());
 
             return isVehicleFound;
-        }
-
-        private Customer createCustomer()
-        {
-            VehicleAllocator.eVehicleTypes vehicleType;
-            string ownerName, ownerPhoneNumber;
-            Vehicle newVehicle;
-            Customer newCustomer;
-
-            ownerName = m_UI.RequestOwnerName();
-            ownerPhoneNumber = m_UI.RequestOwnerPhoneNumber();
-            vehicleType = m_UI.RequestVehicleType();
-            newVehicle = VehicleAllocator.AllocateVehicle(vehicleType);
-            newCustomer = new Customer(ownerName, ownerPhoneNumber, newVehicle);
-
-            return newCustomer;
         }
 
         public Dictionary<int, Customer> Customers
@@ -212,5 +90,49 @@ namespace Ex03.GarageLogic
             }
         }
 
+        public Customer CustomerDetails(string i_LicenseNumberOfVehicle)
+        {
+            Customer customerToShowDetails;
+
+            customerToShowDetails = m_Customers[i_LicenseNumberOfVehicle.GetHashCode()];
+
+            return customerToShowDetails;
+        }
+
+        public void FuelEnginedVehicle(string i_LicenseNumberOfVehicle, EnginedVehicle.eFuelType i_FuelType, float i_AmountOfFuelToAdd)
+        {
+            // maybe to return a bool to ui if success or not and send message to user according to situation
+            // TODO: check is as part.
+            Vehicle vehicleToFuel;
+
+            vehicleToFuel = m_Customers[i_LicenseNumberOfVehicle.GetHashCode()].Vehicle;
+            if(vehicleToFuel is EnginedVehicle)
+            {
+                (vehicleToFuel as EnginedVehicle).Refuel(i_AmountOfFuelToAdd, i_FuelType);
+            }
+            else
+            {
+                // TODO: throw argument exception
+
+            }
+        }
+
+        public void ChargeElectricVehicle(string i_LicenseNumberOfVehicle, float i_AmountOfMinutesToCharge)
+        {
+            // maybe to return a bool to ui if success or not and send message to user according to situation
+            // TODO: check is as part.
+            Vehicle vehicleToCharge;
+
+            vehicleToCharge = m_Customers[i_LicenseNumberOfVehicle.GetHashCode()].Vehicle;
+            if (vehicleToCharge is ElectricVehicle)
+            {
+                (vehicleToCharge as ElectricVehicle).Charge(i_AmountOfMinutesToCharge);
+            }
+            else
+            {
+                // TODO: throw argument exception
+
+            }
+        }
     }
 }

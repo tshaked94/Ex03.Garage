@@ -6,7 +6,7 @@ namespace Ex03.GarageLogic
 {
     public class Customer
     {
-        public enum eVehicleStatus { Paid, Repaired, Repairing};
+        public enum eVehicleStatus { Paid = 1, Repaired, Repairing};
 
         private string m_OwnerName;
         private string m_OwnerPhoneNumber;

@@ -53,11 +53,5 @@
     <Compile Include="Tire.cs" />
     <Compile Include="VehicleAllocator.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Ex03.ConsoleUI\Ex03.ConsoleUI.csproj">
-      <Project>{379afdb0-a944-4072-8c09-d61e7c7a3f15}</Project>
-      <Name>Ex03.ConsoleUI</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
