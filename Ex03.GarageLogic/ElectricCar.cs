@@ -8,6 +8,17 @@ namespace Ex03.GarageLogic
     {
         private Utilities.eCarColor m_CarColor;
         private int m_NumOfDoors;
+        public const int k_TirePressure = 31;
+        public const float k_MaximumBatteryLife = 1.8f;
+
+        public ElectricCar()
+        {
+            base.m_VehicleTires.Add(new Tire(k_TirePressure));
+            base.m_VehicleTires.Add(new Tire(k_TirePressure));
+            base.m_VehicleTires.Add(new Tire(k_TirePressure));
+            base.m_VehicleTires.Add(new Tire(k_TirePressure));
+            base.m_MaximumBatteryLife = k_MaximumBatteryLife;
+        }
 
         public int NumberOfDoors
         {

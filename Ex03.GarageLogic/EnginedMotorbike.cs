@@ -8,7 +8,16 @@ namespace Ex03.GarageLogic
     {
         private Utilities.eMotorbikeLicenseType m_LicenseType;
         private int m_EngineVolume;
+        public const int k_TirePressure = 33;
+        public const float k_MaximumFuelAmount = 8f;
 
+        public EnginedMotorbike()
+        {
+            base.m_VehicleTires.Add(new Tire(k_TirePressure));
+            base.m_VehicleTires.Add(new Tire(k_TirePressure));
+            base.m_FuelType = EnginedMotorbike.eFuelType.Octan95;
+            base.m_MaximumFuelAmount = k_MaximumFuelAmount;
+        }
         public int EngineVolume
         {
             get
@@ -35,13 +44,6 @@ namespace Ex03.GarageLogic
             {
                 m_LicenseType = value;
             }
-        }
-        public EnginedMotorbike()
-        {
-            m_VehicleTires.Add(new Tire(33f));
-            m_VehicleTires.Add(new Tire(33f));
-            m_FuelType = EnginedVehicle.eFuelType.Octan95;
-            m_MaximumFuelAmount = 8f;
         }
     }
 }

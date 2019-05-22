@@ -4,10 +4,19 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    class ElectricMotorbike : ElectricVehicle
+    public class ElectricMotorbike : ElectricVehicle
     {
         private Utilities.eMotorbikeLicenseType m_LicenseType;
         private int m_EngineVolume;
+        public const int k_TirePressure = 33;
+        public const float k_MaximumBatteryLife = 1.4f;
+
+        public ElectricMotorbike()
+        {
+            base.m_VehicleTires.Add(new Tire(k_TirePressure));
+            base.m_VehicleTires.Add(new Tire(k_TirePressure));
+            base.m_MaximumBatteryLife = k_MaximumBatteryLife;
+        }
 
         public int EngineVolume
         {
@@ -35,12 +44,6 @@ namespace Ex03.GarageLogic
             {
                 m_LicenseType = value;
             }
-        }
-        public ElectricMotorbike()
-        {
-            m_VehicleTires.Add(new Tire(33f));
-            m_VehicleTires.Add(new Tire(33f));
-            m_MaximumBatteryLife = 1.4f;
         }
     }
 }

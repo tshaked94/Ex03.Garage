@@ -6,6 +6,17 @@ namespace Ex03.GarageLogic
 {
     public class VehicleAllocator
     {
+        private static List<string> m_VehicleTypesNames =
+        new List<string>
+        (new string[]
+        {
+        "Engined Car",
+        "Electric Car",
+        "Engined Motorbike",
+        "Electric Motorbike",
+        "Truck"
+        });
+
         public enum eVehicleTypes
         {
             EnginedCar = 1,
@@ -13,6 +24,15 @@ namespace Ex03.GarageLogic
             EnginedMotorbike,
             ElectricMotorbike,
             Truck
+        }
+
+        public static List<string> VehicleTypes
+        {
+            get
+            {
+
+                return m_VehicleTypesNames;
+            }
         }
 
         public static Vehicle MakeNewVehicle(eVehicleTypes vehicleType)

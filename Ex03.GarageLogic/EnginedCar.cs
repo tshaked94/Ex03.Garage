@@ -8,6 +8,18 @@ namespace Ex03.GarageLogic
     {
         private Utilities.eCarColor m_CarColor;
         private int m_NumOfDoors;
+        public const int k_TirePressure = 31;
+        public const float k_MaximumFuelAmount = 55f;
+
+        public EnginedCar()
+        {
+            base.m_VehicleTires.Add(new Tire(k_TirePressure));
+            base.m_VehicleTires.Add(new Tire(k_TirePressure));
+            base.m_VehicleTires.Add(new Tire(k_TirePressure));
+            base.m_VehicleTires.Add(new Tire(k_TirePressure));
+            base.m_FuelType = EnginedVehicle.eFuelType.Octan96;
+            base.m_MaximumFuelAmount = m_MaximumFuelAmount;
+        }
 
         public int NumberOfDoors
         {

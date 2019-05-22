@@ -6,7 +6,7 @@ namespace Ex03.GarageLogic
 {
     public class Garage
     {
-        private Dictionary<int, Customer> m_Customers;
+        private Dictionary<int, Customer> m_Customers = new Dictionary<int, Customer>();
 
         public void InflateVehicleTiresToMaximum(string i_LicenseNumber)
         {
@@ -65,6 +65,71 @@ namespace Ex03.GarageLogic
             }
 
             return listOFNumbersToShow;
+        }
+
+        public void SetCarDetails(Vehicle i_VehicleToSetDetails, Utilities.eCarColor carColor, int numberOfDoors)
+        {
+            // this method set the car details according to the parameters recieved
+            // at this stage we know that the vehicle is EnginedCar or ElectricCar
+            // TODO: check is as
+            if(i_VehicleToSetDetails is EnginedCar)
+            {
+                (i_VehicleToSetDetails as EnginedCar).CarColor = carColor;
+                (i_VehicleToSetDetails as EnginedCar).NumberOfDoors = numberOfDoors;
+                (i_VehicleToSetDetails as EnginedCar).CurrentFuelAmount = ((i_VehicleToSetDetails as EnginedCar).MaximumFuelAmount * i_VehicleToSetDetails.EnergyPercentage) / 100;
+            }
+
+            if(i_VehicleToSetDetails is ElectricCar)
+            {
+                (i_VehicleToSetDetails as ElectricCar).CarColor = carColor;
+                (i_VehicleToSetDetails as ElectricCar).NumberOfDoors = numberOfDoors;
+                (i_VehicleToSetDetails as ElectricCar).BatteryLifeLeft = ((i_VehicleToSetDetails as ElectricCar).MaximumBatteryLife * i_VehicleToSetDetails.EnergyPercentage) / 100;
+            }
+        }
+
+        public void SetVehicleDetails(Vehicle i_VehicleToSetDetails, string i_ModelName, string i_TiresManufacaturerName, float i_CurrentTirePressure, float i_EnergyPercentageLeft)
+        {
+            // this method set the vehicle details according to the parameters recieved
+            i_VehicleToSetDetails.ModelName = i_ModelName;
+            i_VehicleToSetDetails.EnergyPercentage = i_EnergyPercentageLeft;
+            foreach(Tire tire in i_VehicleToSetDetails.Tires)
+            {
+                tire.CurrentPressure = i_CurrentTirePressure;
+                tire.ManufacaturerName = i_TiresManufacaturerName;
+            }
+        }
+
+        public void SetMotorbikeDetails(Vehicle i_VehicleToSetDetails, int i_EngineVolume, Utilities.eMotorbikeLicenseType i_MotorbikeLicenseType)
+        {
+            // this method set the motorbike details according to the parameters recieved
+            // at this stage we know that the vehicle is EnginedMotorbike or ElectricMotorbike
+            // TODO: check is as
+            if (i_VehicleToSetDetails is ElectricMotorbike)
+            {
+                (i_VehicleToSetDetails as ElectricMotorbike).EngineVolume = i_EngineVolume;
+                (i_VehicleToSetDetails as ElectricMotorbike).BatteryLifeLeft = (i_VehicleToSetDetails.EnergyPercentage * (i_VehicleToSetDetails as ElectricMotorbike).MaximumBatteryLife) / 100;
+                (i_VehicleToSetDetails as ElectricMotorbike).LicenseType = i_MotorbikeLicenseType;
+            }
+
+            if(i_VehicleToSetDetails is EnginedMotorbike)
+            {
+                (i_VehicleToSetDetails as EnginedMotorbike).EngineVolume = i_EngineVolume;
+                (i_VehicleToSetDetails as EnginedMotorbike).CurrentFuelAmount = (i_VehicleToSetDetails.EnergyPercentage * (i_VehicleToSetDetails as EnginedMotorbike).MaximumFuelAmount) / 100;
+                (i_VehicleToSetDetails as EnginedMotorbike).LicenseType = i_MotorbikeLicenseType;
+            }
+        }
+
+        public void SetLicenseNumber(string i_LicenseNumber, Vehicle i_VehicleToSet)
+        {
+            i_VehicleToSet.LicenseNumber = i_LicenseNumber;
+        }
+
+        public void SetTruckDetails(Truck i_TruckToSetDetails, float cargoVolume, bool isContainingDangerousCargo)
+        {
+            // this method set the truck details according to the parameters recieved
+            i_TruckToSetDetails.CargoVolume = cargoVolume;
+            i_TruckToSetDetails.CurrentFuelAmount = (i_TruckToSetDetails.EnergyPercentage * i_TruckToSetDetails.MaximumFuelAmount) / 100;
+            i_TruckToSetDetails.IsContainingDangerousMaterials = isContainingDangerousCargo;
         }
 
         public void ChangeCustomerVehicleStatus(string i_LicenseNumberOfVehicle, Customer.eVehicleStatus i_NewVehicleStatus)

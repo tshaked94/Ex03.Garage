@@ -6,8 +6,10 @@ namespace Ex03.ConsoleUI
 {
     public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
+            UI userInterface = new UI();
+            userInterface.Run();
         }
     }
 }

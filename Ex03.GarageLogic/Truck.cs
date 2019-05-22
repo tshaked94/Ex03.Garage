@@ -6,20 +6,32 @@ namespace Ex03.GarageLogic
 {
     public class Truck : EnginedVehicle
     {
-        private bool m_IsContainingDangerousMaterials;
+        private bool v_IsContainingDangerousMaterials;
         private float m_CargoVolume;
+        public const int k_TirePressure = 26;
+        public const float k_MaximumFuelAmount = 110f;
+
+        public Truck()
+        {
+            base.m_FuelType = EnginedVehicle.eFuelType.Soler;
+            base.m_MaximumFuelAmount = k_MaximumFuelAmount;
+            for (int i = 1; i <= 12; i++) 
+            {
+                base.m_VehicleTires.Add(new Tire(k_TirePressure));
+            }
+        }
 
         public bool IsContainingDangerousMaterials
         {
             get
             {
 
-                return m_IsContainingDangerousMaterials;
+                return v_IsContainingDangerousMaterials;
             }
 
             set
             {
-                m_IsContainingDangerousMaterials = value;
+                v_IsContainingDangerousMaterials = value;
             }
         }
 
