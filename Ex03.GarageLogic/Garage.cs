@@ -87,14 +87,28 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public void SetVehicleDetails(Vehicle i_VehicleToSetDetails, string i_ModelName, string i_TiresManufacaturerName, float i_CurrentTirePressure, float i_EnergyPercentageLeft)
+        public void SetTireCurrentPressure(Vehicle i_VehicleToSetDetails, float i_CurrentTirePressure)
+        {
+            float maximumTirePressure = i_VehicleToSetDetails.Tires[0].MaximumPressure;
+
+            if (i_CurrentTirePressure > maximumTirePressure || i_CurrentTirePressure < 0)
+            {
+                throw new ValueOutOfRangeException(maximumTirePressure, 0);
+            }
+
+            foreach(Tire tire in i_VehicleToSetDetails.Tires)
+            {
+                tire.CurrentPressure = i_CurrentTirePressure;
+            }
+        }
+
+        public void SetVehicleDetails(Vehicle i_VehicleToSetDetails, string i_ModelName, string i_TiresManufacaturerName, float i_EnergyPercentageLeft)
         {
             // this method set the vehicle details according to the parameters recieved
             i_VehicleToSetDetails.ModelName = i_ModelName;
             i_VehicleToSetDetails.EnergyPercentage = i_EnergyPercentageLeft;
             foreach(Tire tire in i_VehicleToSetDetails.Tires)
             {
-                tire.CurrentPressure = i_CurrentTirePressure;
                 tire.ManufacaturerName = i_TiresManufacaturerName;
             }
         }
@@ -171,15 +185,7 @@ namespace Ex03.GarageLogic
             Vehicle vehicleToFuel;
 
             vehicleToFuel = m_Customers[i_LicenseNumberOfVehicle.GetHashCode()].Vehicle;
-            if(vehicleToFuel is EnginedVehicle)
-            {
-                (vehicleToFuel as EnginedVehicle).Refuel(i_AmountOfFuelToAdd, i_FuelType);
-            }
-            else
-            {
-                // TODO: throw argument exception
-
-            }
+            (vehicleToFuel as EnginedVehicle).Refuel(i_AmountOfFuelToAdd, i_FuelType);
         }
 
         public void ChargeElectricVehicle(string i_LicenseNumberOfVehicle, float i_AmountOfMinutesToCharge)
@@ -198,6 +204,27 @@ namespace Ex03.GarageLogic
                 // TODO: throw argument exception
 
             }
+        }
+
+        public bool IsEnginedVehicle(string i_LicenseNumberOfVehicle)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool isFuelTypesEquals(string i_LicenseNumberOfVehicle, EnginedVehicle.eFuelType fuelType)
+        {
+            bool isFuelEquals;
+
+            if ((m_Customers[i_LicenseNumberOfVehicle.GetHashCode()].Vehicle as EnginedVehicle).FuelType == fuelType)
+            {
+                isFuelEquals = true;
+            }
+            else
+            {
+                 isFuelEquals = false;
+            }
+
+            return isFuelEquals;
         }
     }
 }

@@ -43,7 +43,7 @@ namespace Ex03.ConsoleUI
                         inflateTiresToMaximum();
                         break;
                     case eUserOptions.FuelEnginedVehicle:
-                        fuelRegularEnginedVehicle();
+                        fuelEnginedVehicle();
                         break;
                     case eUserOptions.ChargeElectricVehicle:
                         chargeElectricVehicle();
@@ -129,7 +129,7 @@ namespace Ex03.ConsoleUI
                 m_Garage.AddNewCustomer(ownerName, ownerPhoneNumber, vehicleCreated);
             }
 
-
+            Console.WriteLine("Customer added succesfully");
             holdScreen();
         }
 
@@ -137,16 +137,17 @@ namespace Ex03.ConsoleUI
         {
             // this method gets the vehicle details from the user.
             string modelName, tiresManufacaturerName;
-            float energyPercentageLeft, currentTirePressure, cargoVolume;
+            float energyPercentageLeft, cargoVolume;
             Utilities.eCarColor carColor;
-            int numberOfDoors, engineVolume;
             Utilities.eMotorbikeLicenseType motorbikeLicenseType;
+            int numberOfDoors, engineVolume;
             bool isContainingDangerousCargo;
 
             modelName = getModelName();
             energyPercentageLeft= getEnergyPercentageLeft();
-            getVehicleTiresDetails(out tiresManufacaturerName, out currentTirePressure);
-            m_Garage.SetVehicleDetails(i_VehicleToSetDetails, modelName, tiresManufacaturerName, currentTirePressure, energyPercentageLeft);
+            tiresManufacaturerName = getTireManufacaturerName();
+            m_Garage.SetVehicleDetails(i_VehicleToSetDetails, modelName, tiresManufacaturerName, energyPercentageLeft);
+            assignValidInputToCurrentTirePressure(i_VehicleToSetDetails);
             if(i_VehicleToSetDetails is EnginedCar || i_VehicleToSetDetails is ElectricCar)
             {
                 getCarDetails(out carColor, out numberOfDoors);
@@ -164,6 +165,31 @@ namespace Ex03.ConsoleUI
             }
         }
 
+        private void assignValidInputToCurrentTirePressure(Vehicle i_VehicleToSet)
+        {
+            float currentTirePressure;
+            bool isValidInput;
+            do
+            {
+                currentTirePressure = getCurrentTiresPressure();
+                try
+                {
+                    m_Garage.SetTireCurrentPressure(i_VehicleToSet, currentTirePressure);
+                    isValidInput = true;
+                }
+
+                catch (ValueOutOfRangeException ex)
+                {
+                    string exceptionMessage;
+
+                    exceptionMessage = string.Format("Invalid input, please enter a number between {0} to {1} represents current tire pressure", ex.MinValue, ex.MaxValue);
+                    Console.WriteLine(exceptionMessage);
+                    isValidInput = false;
+                }
+            }
+            while (!isValidInput);
+        }
+
         private void getTruckDetails(out float o_CargoVolume, out bool o_IsContainingDangerousCargo)
         {
             // this method gets the truck details from the user.
@@ -176,19 +202,44 @@ namespace Ex03.ConsoleUI
             // this method asks the user the cargo volume of the truck and return it as a float.
             string userChoiceString;
             bool isUserChoiceValid;
-            float cargoVolumeFloat;
+            float cargoVolumeFloat = 0f;
 
             clear();
             Console.WriteLine("Please enter the truck's cargo volume");
-            userChoiceString = Console.ReadLine();
-            isUserChoiceValid = float.TryParse(userChoiceString, out cargoVolumeFloat);
-            while (!isUserChoiceValid)
+            do
             {
-                clear();
-                Console.WriteLine("Invalid input, please enter a number represents the cargo volume");
-                userChoiceString = Console.ReadLine();
-                isUserChoiceValid = float.TryParse(userChoiceString, out cargoVolumeFloat);
+                try
+                {
+                    userChoiceString = Console.ReadLine();
+                    clear();
+                    cargoVolumeFloat = float.Parse(userChoiceString);
+                    if (cargoVolumeFloat < 0)
+                    {
+                        throw new ValueOutOfRangeException(0);
+                    }
+
+                    isUserChoiceValid = true;
+                }
+
+                catch (ValueOutOfRangeException ex)
+                {
+                    string exceptionMessage;
+
+                    exceptionMessage = string.Format("Invalid input, please enter a positive number represents cargo volume");
+                    Console.WriteLine(exceptionMessage);
+                    isUserChoiceValid = false;
+                }
+
+                catch (FormatException ex)
+                {
+                    string exceptionMessage;
+
+                    exceptionMessage = string.Format("Invalid input, please enter a float number only represents cargo volume");
+                    Console.WriteLine(exceptionMessage);
+                    isUserChoiceValid = false;
+                }
             }
+            while (!isUserChoiceValid);
 
             return cargoVolumeFloat;
         }
@@ -264,20 +315,45 @@ namespace Ex03.ConsoleUI
         private int getEngineVolume()
         {
             string engineVolumeString;
-            int engineVolumeInt;
+            int engineVolumeInt = 0;
             bool isUserChoiceValid;
 
             clear();
             Console.WriteLine("Please enter the engine volume");
-            engineVolumeString = Console.ReadLine();
-            isUserChoiceValid = int.TryParse(engineVolumeString, out engineVolumeInt);
-            while (!isUserChoiceValid)
+            do
             {
-                clear();
-                Console.WriteLine("Invalid input, Please enter a number represents the engine volume");
-                engineVolumeString = Console.ReadLine();
-                isUserChoiceValid = int.TryParse(engineVolumeString, out engineVolumeInt);
+                try
+                {
+                    engineVolumeString = Console.ReadLine();
+                    clear();
+                    engineVolumeInt = int.Parse(engineVolumeString);
+                    if(engineVolumeInt < 0)
+                    {
+                        throw new ValueOutOfRangeException(0);
+                    }
+
+                    isUserChoiceValid = true;
+                }
+
+                catch (ValueOutOfRangeException ex)
+                {
+                    string exceptionMessage;
+
+                    exceptionMessage = string.Format("Invalid input, please enter a positive number represents the engine volume");
+                    Console.WriteLine(exceptionMessage);
+                    isUserChoiceValid = false;
+                }
+
+                catch (FormatException ex)
+                {
+                    string exceptionMessage;
+
+                    exceptionMessage = string.Format("Invalid input, please enter an integer number only represents the engine volume");
+                    Console.WriteLine(exceptionMessage);
+                    isUserChoiceValid = false;
+                }
             }
+            while (!isUserChoiceValid);
 
             return engineVolumeInt;
         }
@@ -293,20 +369,45 @@ namespace Ex03.ConsoleUI
         {
             // this method get num of doors in car from the user.
             string numOfDoorsString;
-            int numOfDoorsInt;
+            int numOfDoorsInt = 0;
             bool isUserChoiceValid;
 
             clear();
             Console.WriteLine("Please enter number of doors in the car");
-            numOfDoorsString = Console.ReadLine();
-            isUserChoiceValid = int.TryParse(numOfDoorsString, out numOfDoorsInt);
-            while (!isUserChoiceValid)
+            do
             {
-                clear();
-                Console.WriteLine("Invalid input, Please enter a number represents the number of doors in the car");
-                numOfDoorsString = Console.ReadLine();
-                isUserChoiceValid = int.TryParse(numOfDoorsString, out numOfDoorsInt);
+                try
+                {
+                    numOfDoorsString = Console.ReadLine();
+                    clear();
+                    numOfDoorsInt = int.Parse(numOfDoorsString);
+                    if (numOfDoorsInt < 2 || numOfDoorsInt > 5)
+                    {
+                        throw new ValueOutOfRangeException(5, 2);
+                    }
+
+                    isUserChoiceValid = true;
+                }
+
+                catch (ValueOutOfRangeException ex)
+                {
+                    string exceptionMessage;
+
+                    exceptionMessage = string.Format("Invalid input, please enter a number between {0} to {1} represents the number of doors", ex.MinValue, ex.MaxValue);
+                    Console.WriteLine(exceptionMessage);
+                    isUserChoiceValid = false;
+                }
+
+                catch (FormatException ex)
+                {
+                    string exceptionMessage;
+
+                    exceptionMessage = string.Format("Invalid input, please enter an int number only represents the number of doors");
+                    Console.WriteLine(exceptionMessage);
+                    isUserChoiceValid = false;
+                }
             }
+            while (!isUserChoiceValid);
 
             return numOfDoorsInt;
         }
@@ -339,31 +440,34 @@ namespace Ex03.ConsoleUI
             return carColor;
         }
 
-        private void getVehicleTiresDetails(out string o_TireManufacaturerName, out float o_CurrentTirePressure)
-        {
-            // this method gets the tires details from user
-            o_TireManufacaturerName = getTireManufacaturerName();
-            o_CurrentTirePressure = getCurrentTiresPressure();
-        }
-
         private float getCurrentTiresPressure()
         {
             // this method get vehicle's current tires pressure.
             string tirePressuerString;
-            float tirePressureFloat;
+            float tirePressureFloat = 0f;
             bool isUserChoiceValid;
 
-            clear();
             Console.WriteLine("Please enter the current tires pressure");
-            tirePressuerString = Console.ReadLine();
-            isUserChoiceValid = float.TryParse(tirePressuerString, out tirePressureFloat);
-            while (!isUserChoiceValid)
+            do
             {
-                clear();
-                Console.WriteLine("Invalid input, Please enter a number represents the current tires pressure");
-                tirePressuerString = Console.ReadLine();
-                isUserChoiceValid = float.TryParse(tirePressuerString, out tirePressureFloat);
+                try
+                {
+                    tirePressuerString = Console.ReadLine();
+                    clear();
+                    tirePressureFloat = float.Parse(tirePressuerString);
+                    isUserChoiceValid = true;
+                }
+
+                catch (FormatException ex)
+                {
+                    string exceptionMessage;
+
+                    exceptionMessage = string.Format("Invalid input, please enter a float number only represents current tire pressure");
+                    Console.WriteLine(exceptionMessage);
+                    isUserChoiceValid = false;
+                }
             }
+            while (!isUserChoiceValid);
 
             return tirePressureFloat;
         }
@@ -396,32 +500,45 @@ namespace Ex03.ConsoleUI
         {
             // this method gets the percentage of energy left from the user and return it as float.
             string energyLeftString;
-            float energyLeftFloat;
+            float energyLeftFloat = 0f;
             bool isUserChoiceValid;
 
             clear();
             Console.WriteLine("Please enter the energy perecntage left in vehicle");
-            energyLeftString = Console.ReadLine();
-            isUserChoiceValid = float.TryParse(energyLeftString, out energyLeftFloat) && isPercentage(energyLeftFloat);
-            while (!isUserChoiceValid)
+            do
             {
-                clear();
-                Console.WriteLine("Invalid input, please enter a number represents the energy percentage left");
-                energyLeftString = Console.ReadLine();
-                isUserChoiceValid = float.TryParse(energyLeftString, out energyLeftFloat) && isPercentage(energyLeftFloat);
+                try
+                {
+                    energyLeftString = Console.ReadLine();
+                    clear();
+                    energyLeftFloat = float.Parse(energyLeftString);
+                    if (energyLeftFloat < 0 || energyLeftFloat > 100)
+                    {
+                        throw new ValueOutOfRangeException(100, 0);
+                    }
+                    isUserChoiceValid = true;
+                }
+
+                catch (ValueOutOfRangeException ex)
+                {
+                    string exceptionMessage;
+
+                    exceptionMessage = string.Format("Invalid input, please enter a number between {0} to {1} represents the energy percentage left", ex.MinValue, ex.MaxValue);
+                    Console.WriteLine(exceptionMessage);
+                    isUserChoiceValid = false;
+                }
+                catch (FormatException ex)
+                {
+                    string exceptionMessage;
+
+                    exceptionMessage = string.Format("Invalid input, please enter a float number only represents the percentage of energy left");
+                    Console.WriteLine(exceptionMessage);
+                    isUserChoiceValid = false;
+                }
             }
+            while (!isUserChoiceValid);
 
             return energyLeftFloat;
-        }
-
-        private bool isPercentage(float energyLeftFloat)
-        {
-            // this method gets a num and checks if it represents a valid percentage between 0-100.
-            bool isNumPercentage;
-
-            isNumPercentage = (energyLeftFloat >= 0) && (energyLeftFloat <= 100);
-
-            return isNumPercentage;
         }
 
         private void vehicleStatusHasBeenChangedToRepairing()
@@ -432,31 +549,77 @@ namespace Ex03.ConsoleUI
         private void getOwnerDetails(out string io_OwnerName, out string io_OwnerPhoneNumber)
         {
             // this method request user to enter his name and his phone number, it return this data by out parameters
-            bool isNameValid, isPhoneNumberValid;
+            io_OwnerName = getOwnerName();
+            io_OwnerPhoneNumber = getOwnerPhoneNumber();
+        }
 
-            clear();
-            Console.WriteLine("Please enter your name:");
-            io_OwnerName = Console.ReadLine();
-            isNameValid = IsAllLetters(io_OwnerName);
-            while (!isNameValid)
-            {
-                clear();
-                Console.WriteLine("Name cannot include numbers, Please enter valid name:");
-                io_OwnerName = Console.ReadLine();
-                isNameValid = IsAllLetters(io_OwnerName);
-            }
+        private string getOwnerPhoneNumber()
+        {
+            bool isPhoneNumberValid;
+            string ownerPhoneNumber = null;
+            int phoneNumberInt;
 
             clear();
             Console.WriteLine("Please enter your phone number:");
-            io_OwnerPhoneNumber = Console.ReadLine();
-            isPhoneNumberValid = IsAllDigits(io_OwnerPhoneNumber);
-            while (!isPhoneNumberValid)
+            do
             {
-                clear();
-                Console.WriteLine("Phone number cannot include letters, Please enter valid phone number:");
-                io_OwnerName = Console.ReadLine();
-                isPhoneNumberValid = IsAllDigits(io_OwnerPhoneNumber);
+                try
+                {
+                    ownerPhoneNumber = Console.ReadLine();
+                    clear();
+                    //isPhoneNumberValid = IsAllDigits(ownerPhoneNumber);
+                    phoneNumberInt = int.Parse(ownerPhoneNumber);
+                    isPhoneNumberValid = true;
+                }
+
+                catch (FormatException)
+                {
+                    string exceptionMessage;
+
+                    exceptionMessage = string.Format("Invalid input, please enter a phone number includes numbers only");
+                    Console.WriteLine(exceptionMessage);
+                    isPhoneNumberValid = false;
+                }
             }
+            while (!isPhoneNumberValid);
+
+            return ownerPhoneNumber;
+        }
+
+        private string getOwnerName()
+        {
+            bool isNameValid;
+            string ownerName = null;
+
+            clear();
+            Console.WriteLine("Please enter your name:");
+            do
+            {
+                try
+                {
+                    ownerName = Console.ReadLine();
+                    clear();
+                    isNameValid = IsAllLetters(ownerName);
+                    if (!isNameValid)
+                    {
+                        throw new FormatException();
+                    }
+
+                    isNameValid = true;
+                }
+
+                catch (FormatException)
+                {
+                    string exceptionMessage;
+
+                    exceptionMessage = string.Format("Invalid input, please enter owner's name including letters only");
+                    Console.WriteLine(exceptionMessage);
+                    isNameValid = false;
+                }
+            }
+            while (!isNameValid);
+
+            return ownerName;
         }
 
         private void showLicenseNumbers()
@@ -521,21 +684,38 @@ namespace Ex03.ConsoleUI
 
             holdScreen();
         }
+        private void fuelEnginedVehicle()
+        {
+            try
+            {
+                fuelRegularEnginedVehicle();
+            }
+            catch (ArgumentException)
+            {
+                string exceptionMessage;
 
+                exceptionMessage = string.Format("Invalid input, you just choosed an electric car to refuel gas");
+                Console.WriteLine(exceptionMessage);
+            }
+        }
         private void fuelRegularEnginedVehicle()
         {
             string licenseNumberOfVehicle;
-            bool isVehicleFound;
-            EnginedVehicle.eFuelType fuelType;
-            float amountOfFuelToAdd;
+            bool isVehicleFound, isEngined;
 
             licenseNumberOfVehicle = requestLicenseNumber();
             isVehicleFound = m_Garage.isVehicleInGarage(licenseNumberOfVehicle);
             if(isVehicleFound)
             {
-                fuelType = requestFuelType();
-                amountOfFuelToAdd = requestAmountOfFuelToAdd();
-                m_Garage.FuelEnginedVehicle(licenseNumberOfVehicle, fuelType, amountOfFuelToAdd);
+                isEngined = m_Garage.IsEnginedVehicle(licenseNumberOfVehicle);
+                if(!isEngined)
+                {
+                    throw new ArgumentException();
+                }
+                else
+                {
+                    assignValidInputToCurrentFuelAmount(licenseNumberOfVehicle);
+                }
             }
             else
             {
@@ -545,17 +725,83 @@ namespace Ex03.ConsoleUI
             holdScreen();
         }
 
+        private void assignValidInputToCurrentFuelAmount(string i_LicenseNumberOfVehicle)
+        {
+            bool isUserChoiceValid, isFuelTypeValid;
+            EnginedVehicle.eFuelType fuelType;
+            float amountOfFuelToAdd;
+
+            fuelType = requestFuelType();
+            isFuelTypeValid = m_Garage.isFuelTypesEquals(i_LicenseNumberOfVehicle, fuelType);
+            do
+            {
+                try
+                {
+                    if (!isFuelTypeValid)
+                    {
+                        throw new ArgumentException();
+                    }
+                    else
+                    {
+                        amountOfFuelToAdd = requestAmountOfFuelToAdd();
+                        m_Garage.FuelEnginedVehicle(i_LicenseNumberOfVehicle, fuelType, amountOfFuelToAdd);
+                        isUserChoiceValid = true;
+                    }
+                }
+
+                catch (ArgumentException)
+                {
+                    string exceptionMessage;
+
+                    exceptionMessage = string.Format("Invalid fuel type, ");
+                    Console.Write(exceptionMessage);
+                    fuelType = requestFuelType();
+                    isFuelTypeValid = m_Garage.isFuelTypesEquals(i_LicenseNumberOfVehicle, fuelType);
+
+                    isUserChoiceValid = false;
+                }
+
+                catch (ValueOutOfRangeException ex)
+                {
+                    string exceptionMessage;
+
+                    exceptionMessage = string.Format("Invalid input, please enter a number between {0} to {1} represents the amout of fuel to add", ex.MinValue, ex.MaxValue);
+                    Console.WriteLine(exceptionMessage);
+                    isUserChoiceValid = false;
+                }
+
+            }
+            while (!isUserChoiceValid);
+        }
+
         private float requestAmountOfFuelToAdd()
         {
             string fuelAmountToAddString;
-            float fuelAmountToAdd;
-            bool isParsingSuccessed;
+            float fuelAmountToAdd = 0;
+            bool isUserChoiceValid;
 
-            // TODO: add Formatting exeption
             clear();
-            Console.WriteLine("Please enter fuel amount you would like to add:");
-            fuelAmountToAddString = Console.ReadLine();
-            isParsingSuccessed = float.TryParse(fuelAmountToAddString, out fuelAmountToAdd);
+            Console.WriteLine("Please enter fuel amount you would like to add");
+            do
+            {
+                try
+                {
+                    fuelAmountToAddString = Console.ReadLine();
+                    clear();
+                    fuelAmountToAdd = float.Parse(fuelAmountToAddString);
+                    isUserChoiceValid = true;
+                }
+
+                catch (FormatException)
+                {
+                    string exceptionMessage;
+
+                    exceptionMessage = string.Format("Invalid input, please enter a float number only represents the amount of fuel to add");
+                    Console.WriteLine(exceptionMessage);
+                    isUserChoiceValid = false;
+                }
+            }
+            while (!isUserChoiceValid);
 
             return fuelAmountToAdd;
         }
@@ -567,8 +813,8 @@ namespace Ex03.ConsoleUI
             int userChoiceInt;
             bool isUserChoiceValid;
 
-            clear();
-            Console.WriteLine("Please enter fuel type{0}1.Soler{0}2.Octan95{0}3.Octan96{0}4.Octan98", Environment.NewLine);
+       
+            Console.WriteLine("Please choose fuel type from the list below{0}1.Soler{0}2.Octan95{0}3.Octan96{0}4.Octan98", Environment.NewLine);
             userChoiceString = Console.ReadLine();
             isUserChoiceValid = isValidChoice(userChoiceString, 4);
             while (!isUserChoiceValid)
@@ -798,7 +1044,7 @@ Tires{0}Manufacturer Name: {4}{0}Current Tire Pressure: {5}{0}Max Tire Pressure:
             int newVehicleStatusInt;
 
             clear();
-            Console.WriteLine("Please enter the new vehicle status{0}1.Paid{0}2.Repaired{0}3.Repairing", Environment.NewLine);
+            Console.WriteLine("Please choose the new vehicle status from the list below{0}1.Paid{0}2.Repaired{0}3.Repairing", Environment.NewLine);
             newVehicleStatusString = Console.ReadLine();
             isUserChoiceValid = isValidChoice(newVehicleStatusString, 3);
             while(!isUserChoiceValid)
@@ -838,7 +1084,7 @@ Tires{0}Manufacturer Name: {4}{0}Current Tire Pressure: {5}{0}Max Tire Pressure:
             int numberOfStatus, userStatusInt;
 
             numberOfStatus = Enum.GetValues(typeof(Customer.eVehicleStatus)).Length;
-            statusFilters = string.Format("1. Paid{0}2. Repaired{0} 3. Reapairing", Environment.NewLine);
+            statusFilters = string.Format("1. Paid{0}2. Repaired{0}3. Reapairing", Environment.NewLine);
             message1 = string.Format("Please enter status filter from the list below:{0}{1}", Environment.NewLine, statusFilters);
             message2 = string.Format("Invalid input, Please enter a correct number of status filter from the list below:{0}{1}",Environment.NewLine, statusFilters);
             clear();
@@ -920,9 +1166,10 @@ Tires{0}Manufacturer Name: {4}{0}Current Tire Pressure: {5}{0}Max Tire Pressure:
             StringBuilder vehicleTypes = new StringBuilder(100); // TODO: think other capacity, maybe const?
             
             numberOfVeicleType = 1;
-            foreach (string vehicleType in VehicleAllocator.VehicleTypes)
-            {   
-                vehicleTypes.AppendFormat("{0}. {1}{2}", numberOfVeicleType, vehicleType, Environment.NewLine);
+            // this foreach loop passing all the vehicles supported in the garage and add its names to string.
+            foreach (VehicleAllocator.eVehicleTypes vehicleType in (VehicleAllocator.eVehicleTypes[])Enum.GetValues(typeof(VehicleAllocator.eVehicleTypes)))
+            {
+                vehicleTypes.AppendFormat("{0}. {1}{2}", numberOfVeicleType, vehicleType.ToString(), Environment.NewLine);
                 numberOfVeicleType++;
             }
             message1 = string.Format("Please enter veichle type from the list below:{0}{1}", Environment.NewLine, vehicleTypes);

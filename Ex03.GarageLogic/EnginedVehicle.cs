@@ -60,10 +60,14 @@ namespace Ex03.GarageLogic
             bool isFuelTypeFits, isFuelAmountInRange;
 
             isFuelTypeFits = i_FuelTypeToAdd == m_FuelType;
-            isFuelAmountInRange = i_AmountOfFuelToAdd + m_CurrentFuelAmount <= m_MaximumFuelAmount;
+            isFuelAmountInRange = i_AmountOfFuelToAdd + m_CurrentFuelAmount <= m_MaximumFuelAmount && i_AmountOfFuelToAdd + m_CurrentFuelAmount > 0;
             if(isFuelAmountInRange && isFuelTypeFits)
             {
                 m_CurrentFuelAmount += i_AmountOfFuelToAdd;
+            }
+            else
+            {
+                throw new ValueOutOfRangeException(m_MaximumFuelAmount - m_CurrentFuelAmount, 0);
             }
         }
     }

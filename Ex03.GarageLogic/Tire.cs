@@ -63,10 +63,14 @@ namespace Ex03.GarageLogic
             // TODO: add out of range exception.
             bool isAirPressureInRange;
 
-            isAirPressureInRange = m_CurrentPressure + i_AmountOfAirToAdd <= m_MaximumPressure;
+            isAirPressureInRange = (m_CurrentPressure + i_AmountOfAirToAdd) <= (m_MaximumPressure);
             if(isAirPressureInRange)
             {
                 m_CurrentPressure += i_AmountOfAirToAdd;
+            }
+            else
+            {
+                throw new ValueOutOfRangeException(m_MaximumPressure, 0);
             }
         }
     }
