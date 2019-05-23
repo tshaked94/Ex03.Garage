@@ -782,7 +782,7 @@ namespace Ex03.ConsoleUI
 Tires{0}Manufacturer Name: {4}{0}Current Tire Pressure: {5}{0}Max Tire Pressure: {6}", Environment.NewLine, manufacturerName, licenseNumber, energyPercentageLeft, tireManufacturerName, tireCurrentPressure, tireMaxPressure);
             Console.WriteLine(generalVehicleDetails);
         }
-
+        
         private void holdScreen()
         {
             Console.WriteLine("Press any key to go back to main menu...");
