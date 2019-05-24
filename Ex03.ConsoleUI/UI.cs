@@ -999,7 +999,7 @@ Please enter valid name:"); ;
 
             licenseTypeString = i_EnginedMotorbike.LicenseType.ToString();
             engineVolume = i_EnginedMotorbike.EngineVolume;
-            electricMotorBikeDetails = string.Format("The license Type is: {1}{0}The engine volume is: {2}", Environment.NewLine, licenseTypeString, engineVolume);
+            electricMotorBikeDetails = string.Format("     The license Type is: {1}{0}     The engine volume is: {2}", Environment.NewLine, licenseTypeString, engineVolume);
             Console.WriteLine(electricMotorBikeDetails);
         }
 
