@@ -208,7 +208,11 @@ namespace Ex03.GarageLogic
 
         public bool IsEnginedVehicle(string i_LicenseNumberOfVehicle)
         {
-            throw new NotImplementedException();
+            bool isEngined;
+
+            isEngined = m_Customers[i_LicenseNumberOfVehicle.GetHashCode()].Vehicle is EnginedVehicle;
+
+            return isEngined;
         }
 
         public bool isFuelTypesEquals(string i_LicenseNumberOfVehicle, EnginedVehicle.eFuelType fuelType)
@@ -225,6 +229,16 @@ namespace Ex03.GarageLogic
             }
 
             return isFuelEquals;
+        }
+
+        public bool IsElectricVehicle(string i_LicenseNumberOfVehicle)
+        {
+            bool isElectric;
+
+            isElectric = m_Customers[i_LicenseNumberOfVehicle.GetHashCode()].Vehicle is ElectricVehicle;
+
+            return isElectric;
+
         }
     }
 }

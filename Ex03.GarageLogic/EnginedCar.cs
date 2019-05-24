@@ -18,7 +18,7 @@ namespace Ex03.GarageLogic
             base.m_VehicleTires.Add(new Tire(k_TirePressure));
             base.m_VehicleTires.Add(new Tire(k_TirePressure));
             base.m_FuelType = EnginedVehicle.eFuelType.Octan96;
-            base.m_MaximumFuelAmount = m_MaximumFuelAmount;
+            base.m_MaximumFuelAmount = k_MaximumFuelAmount;
         }
 
         public int NumberOfDoors
