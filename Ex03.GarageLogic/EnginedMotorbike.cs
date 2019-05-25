@@ -13,11 +13,12 @@ namespace Ex03.GarageLogic
 
         public EnginedMotorbike()
         {
-            base.m_VehicleTires.Add(new Tire(k_TirePressure));
-            base.m_VehicleTires.Add(new Tire(k_TirePressure));
-            base.m_FuelType = EnginedMotorbike.eFuelType.Octan95;
-            base.m_MaximumFuelAmount = k_MaximumFuelAmount;
+            m_VehicleTires.Add(new Tire(k_TirePressure));
+            m_VehicleTires.Add(new Tire(k_TirePressure));
+            m_FuelType = EnginedMotorbike.eFuelType.Octan95;
+            m_MaximumFuelAmount = k_MaximumFuelAmount;
         }
+
         public int EngineVolume
         {
             get
@@ -45,6 +46,7 @@ namespace Ex03.GarageLogic
                 m_LicenseType = value;
             }
         }
+
         public override List<KeyValuePair<string, string>> VehicleInformationByType()
         {
             int numberOfAttributes = 6;
@@ -59,6 +61,5 @@ namespace Ex03.GarageLogic
 
             return informationList;
         }
-
     }
 }

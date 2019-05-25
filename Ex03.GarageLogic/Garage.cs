@@ -230,7 +230,6 @@ namespace Ex03.GarageLogic
             isElectric = m_Customers[i_LicenseNumberOfVehicle.GetHashCode()].Vehicle is ElectricVehicle;
 
             return isElectric;
-
         }
     }
 }

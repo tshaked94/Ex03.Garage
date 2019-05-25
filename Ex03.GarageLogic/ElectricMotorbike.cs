@@ -13,9 +13,9 @@ namespace Ex03.GarageLogic
 
         public ElectricMotorbike()
         {
-            base.m_VehicleTires.Add(new Tire(k_TirePressure));
-            base.m_VehicleTires.Add(new Tire(k_TirePressure));
-            base.m_MaximumBatteryLife = k_MaximumBatteryLife;
+            m_VehicleTires.Add(new Tire(k_TirePressure));
+            m_VehicleTires.Add(new Tire(k_TirePressure));
+            m_MaximumBatteryLife = k_MaximumBatteryLife;
         }
 
         public int EngineVolume
@@ -45,6 +45,7 @@ namespace Ex03.GarageLogic
                 m_LicenseType = value;
             }
         }
+
         public override List<KeyValuePair<string, string>> VehicleInformationByType()
         {
             int numberOfAttributes = 5;
@@ -58,6 +59,5 @@ namespace Ex03.GarageLogic
 
             return informationList;
         }
-
     }
 }

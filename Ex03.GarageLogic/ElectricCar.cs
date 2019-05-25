@@ -13,11 +13,11 @@ namespace Ex03.GarageLogic
 
         public ElectricCar()
         {
-            base.m_VehicleTires.Add(new Tire(k_TirePressure));
-            base.m_VehicleTires.Add(new Tire(k_TirePressure));
-            base.m_VehicleTires.Add(new Tire(k_TirePressure));
-            base.m_VehicleTires.Add(new Tire(k_TirePressure));
-            base.m_MaximumBatteryLife = k_MaximumBatteryLife;
+            m_VehicleTires.Add(new Tire(k_TirePressure));
+            m_VehicleTires.Add(new Tire(k_TirePressure));
+            m_VehicleTires.Add(new Tire(k_TirePressure));
+            m_VehicleTires.Add(new Tire(k_TirePressure));
+            m_MaximumBatteryLife = k_MaximumBatteryLife;
         }
 
         public int NumberOfDoors
@@ -61,6 +61,5 @@ namespace Ex03.GarageLogic
 
             return informationList;
         }
-
     }
 }

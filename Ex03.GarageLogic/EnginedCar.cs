@@ -13,12 +13,12 @@ namespace Ex03.GarageLogic
 
         public EnginedCar()
         {
-            base.m_VehicleTires.Add(new Tire(k_TirePressure));
-            base.m_VehicleTires.Add(new Tire(k_TirePressure));
-            base.m_VehicleTires.Add(new Tire(k_TirePressure));
-            base.m_VehicleTires.Add(new Tire(k_TirePressure));
-            base.m_FuelType = EnginedVehicle.eFuelType.Octan96;
-            base.m_MaximumFuelAmount = k_MaximumFuelAmount;
+            m_VehicleTires.Add(new Tire(k_TirePressure));
+            m_VehicleTires.Add(new Tire(k_TirePressure));
+            m_VehicleTires.Add(new Tire(k_TirePressure));
+            m_VehicleTires.Add(new Tire(k_TirePressure));
+            m_FuelType = EnginedVehicle.eFuelType.Octan96;
+            m_MaximumFuelAmount = k_MaximumFuelAmount;
         }
 
         public int NumberOfDoors
@@ -48,6 +48,7 @@ namespace Ex03.GarageLogic
                 m_CarColor = value;
             }
         }
+
         public override List<KeyValuePair<string, string>> VehicleInformationByType()
         {
             int numberOfAttributes = 6;
@@ -62,6 +63,5 @@ namespace Ex03.GarageLogic
 
             return informationList;
         }
-
     }
 }

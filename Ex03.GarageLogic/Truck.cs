@@ -13,11 +13,11 @@ namespace Ex03.GarageLogic
 
         public Truck()
         {
-            base.m_FuelType = EnginedVehicle.eFuelType.Soler;
-            base.m_MaximumFuelAmount = k_MaximumFuelAmount;
+            m_FuelType = EnginedVehicle.eFuelType.Soler;
+            m_MaximumFuelAmount = k_MaximumFuelAmount;
             for (int i = 1; i <= 12; i++) 
             {
-                base.m_VehicleTires.Add(new Tire(k_TirePressure));
+                m_VehicleTires.Add(new Tire(k_TirePressure));
             }
         }
 
@@ -48,6 +48,7 @@ namespace Ex03.GarageLogic
                 m_CargoVolume = value;
             }
         }
+
         public override List<KeyValuePair<string, string>> VehicleInformationByType()
         {
             int numberOfAttributes = 5;
@@ -63,6 +64,5 @@ namespace Ex03.GarageLogic
 
             return informationList;
         }
-
     }
 }

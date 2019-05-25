@@ -57,13 +57,12 @@ namespace Ex03.GarageLogic
             }
         }
 
-
         public void Inflate(float i_AmountOfAirToAdd)
         {
             // TODO: add out of range exception.
             bool isAirPressureInRange;
 
-            isAirPressureInRange = (m_CurrentPressure + i_AmountOfAirToAdd) <= (m_MaximumPressure);
+            isAirPressureInRange = (m_CurrentPressure + i_AmountOfAirToAdd) <= m_MaximumPressure;
             if(isAirPressureInRange)
             {
                 m_CurrentPressure += i_AmountOfAirToAdd;

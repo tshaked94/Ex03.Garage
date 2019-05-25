@@ -6,8 +6,21 @@ namespace Ex03.GarageLogic
 {
     public abstract class Utilities
     {
-        public enum eMotorbikeLicenseType { A, A1, A2, B};
-        public enum eCarColor { Red, Blue, Black, Gray};
+        public enum eMotorbikeLicenseType
+        {
+            A,
+            A1,
+            A2,
+            B
+        }
+
+        public enum eCarColor
+        {
+            Red,
+            Blue,
+            Black,
+            Gray
+        }
 
         public enum userChoice
         {

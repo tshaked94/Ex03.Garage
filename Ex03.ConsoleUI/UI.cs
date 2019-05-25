@@ -54,8 +54,6 @@ namespace Ex03.ConsoleUI
                 }
             }
             while (userChoice != eUserOptions.Exit);
-
-
         }
 
         private eUserOptions getUserChoice()
@@ -102,7 +100,6 @@ namespace Ex03.ConsoleUI
             {
                 Console.WriteLine(option);
             }
-
         }
 
         private void addNewCustomer()
@@ -181,7 +178,6 @@ namespace Ex03.ConsoleUI
                     m_Garage.SetTireCurrentPressure(i_VehicleToSet, currentTirePressure);
                     isValidInput = true;
                 }
-
                 catch (ValueOutOfRangeException ex)
                 {
                     string exceptionMessage;
@@ -225,7 +221,6 @@ namespace Ex03.ConsoleUI
 
                     isUserChoiceValid = true;
                 }
-
                 catch (ValueOutOfRangeException)
                 {
                     string exceptionMessage;
@@ -235,7 +230,6 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine(exceptionMessage);
                     isUserChoiceValid = false;
                 }
-
                 catch (FormatException)
                 {
                     string exceptionMessage;
@@ -245,7 +239,6 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine(exceptionMessage);
                     isUserChoiceValid = false;
                 }
-
                 catch (OverflowException)
                 {
                     string exceptionMessage;
@@ -352,7 +345,6 @@ namespace Ex03.ConsoleUI
 
                     isUserChoiceValid = true;
                 }
-
                 catch (ValueOutOfRangeException)
                 {
                     string exceptionMessage;
@@ -362,7 +354,6 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine(exceptionMessage);
                     isUserChoiceValid = false;
                 }
-
                 catch (FormatException)
                 {
                     string exceptionMessage;
@@ -372,7 +363,6 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine(exceptionMessage);
                     isUserChoiceValid = false;
                 }
-
                 catch (OverflowException)
                 {
                     string exceptionMessage;
@@ -418,18 +408,16 @@ namespace Ex03.ConsoleUI
 
                     isUserChoiceValid = true;
                 }
-
                 catch (ValueOutOfRangeException ex)
                 {
                     string exceptionMessage;
 
                     clear();
                     exceptionMessage = string.Format(@"Invalid input, please enter a number between {0} to {1}
-represents the number of doors", ex.MinValue, ex.MaxValue);
+                    represents the number of doors", ex.MinValue, ex.MaxValue);
                     Console.WriteLine(exceptionMessage);
                     isUserChoiceValid = false;
                 }
-
                 catch (FormatException)
                 {
                     string exceptionMessage;
@@ -440,7 +428,6 @@ represents the number of doors");
                     Console.WriteLine(exceptionMessage);
                     isUserChoiceValid = false;
                 }
-
                 catch (OverflowException)
                 {
                     string exceptionMessage;
@@ -502,7 +489,6 @@ Please enter a number represents the number of doors");
                     tirePressureFloat = float.Parse(tirePressuerString);
                     isUserChoiceValid = true;
                 }
-
                 catch (FormatException)
                 {
                     string exceptionMessage;
@@ -512,7 +498,6 @@ Please enter a number represents the number of doors");
                     Console.WriteLine(exceptionMessage);
                     isUserChoiceValid = false;
                 }
-
                 catch (OverflowException)
                 {
                     string exceptionMessage;
@@ -538,6 +523,7 @@ Please enter a float number represents the current tires pressure");
             clear();
             Console.WriteLine("Please enter the tire's manufacaturer name");
             manufacaturerName = Console.ReadLine();
+
             // this boolean expresion validate that the user input isn't empty
             isValidInput = !string.IsNullOrEmpty(manufacaturerName) && (isContainLetter(manufacaturerName) || isContainDigit(manufacaturerName));
             while (!isValidInput)
@@ -563,6 +549,7 @@ Please enter valid tire's manufacaturer name:");
             clear();
             Console.WriteLine("Please enter the vehicle's model name");
             modelName = Console.ReadLine();
+
             // this boolean expresion validate that the user input isn't empty
             isValidInput = !string.IsNullOrEmpty(modelName) && (isContainLetter(modelName) || isContainDigit(modelName));
             while (!isValidInput)
@@ -596,16 +583,16 @@ Please enter valid tire's manufacaturer name:");
                     {
                         throw new ValueOutOfRangeException(100, 0);
                     }
+
                     isUserChoiceValid = true;
                 }
-
                 catch (ValueOutOfRangeException ex)
                 {
                     string exceptionMessage;
 
                     clear();
                     exceptionMessage = string.Format(@"Invalid input, please enter a float number between {0} to {1}
-represents the energy percentage left", ex.MinValue, ex.MaxValue);
+                    represents the energy percentage left", ex.MinValue, ex.MaxValue);
                     Console.WriteLine(exceptionMessage);
                     isUserChoiceValid = false;
                 }
@@ -615,11 +602,10 @@ represents the energy percentage left", ex.MinValue, ex.MaxValue);
 
                     clear();
                     exceptionMessage = string.Format(@"Invalid input, please enter a float number
-represents the percentage of energy left");
+                    represents the percentage of energy left");
                     Console.WriteLine(exceptionMessage);
                     isUserChoiceValid = false;
                 }
-
                 catch (OverflowException)
                 {
                     string exceptionMessage;
@@ -666,7 +652,6 @@ Please enter a float number represents the percentage of energy left");
                     phoneNumberInt = int.Parse(ownerPhoneNumber);
                     isPhoneNumberValid = true;
                 }
-
                 catch (FormatException)
                 {
                     string exceptionMessage;
@@ -676,7 +661,6 @@ Please enter a float number represents the percentage of energy left");
                     Console.WriteLine(exceptionMessage);
                     isPhoneNumberValid = false;
                 }
-
                 catch (OverflowException)
                 {
                     string exceptionMessage;
@@ -700,6 +684,7 @@ Please enter a float number represents the percentage of energy left");
             clear();
             Console.WriteLine("Please enter your name:");
             ownerName = Console.ReadLine();
+
             // validate that the user input isn't empty and include letters only
             isInputValid = isOwnerNameValid(ownerName) && !string.IsNullOrEmpty(ownerName);
             while (!isInputValid)
@@ -709,7 +694,6 @@ Please enter a float number represents the percentage of energy left");
 Please enter valid name:");
                 ownerName = Console.ReadLine();
                 isInputValid = isOwnerNameValid(ownerName) && !string.IsNullOrEmpty(ownerName);
-
             }
 
             return ownerName;
@@ -732,6 +716,7 @@ Please enter valid name:");
             {
                 licenseNumbersToShow = m_Garage.ShowAllLicenseNumbers();
             }
+
             printLicenseNumbers(licenseNumbersToShow);
         }
 
@@ -781,13 +766,13 @@ Please enter valid name:");
 
             holdScreen();
         }
+
         private void fuelEnginedVehicle()
         {
             try
             {
                fuelRegularEnginedVehicle();
             }
-
             catch (ArgumentException)
             {
                 string exceptionMessage;
@@ -799,6 +784,7 @@ Please enter valid name:");
 
             holdScreen();
         }
+
         private void fuelRegularEnginedVehicle()
         {
             string licenseNumberOfVehicle, message;
@@ -850,7 +836,6 @@ Please enter valid name:");
                         isUserChoiceValid = true;
                     }
                 }
-
                 catch (ArgumentException)
                 {
                     string exceptionMessage;
@@ -863,7 +848,6 @@ Please enter valid name:");
 
                     isUserChoiceValid = false;
                 }
-
                 catch (ValueOutOfRangeException ex)
                 {
                     string exceptionMessage;
@@ -903,7 +887,6 @@ Please enter valid name:");
                     fuelAmountToAdd = float.Parse(fuelAmountToAddString);
                     isUserChoiceValid = true;
                 }
-
                 catch (FormatException)
                 {
                     string exceptionMessage;
@@ -913,7 +896,6 @@ Please enter valid name:");
                     Console.WriteLine(exceptionMessage);
                     isUserChoiceValid = false;
                 }
-
                 catch(OverflowException)
                 {
                     string exceptionMessage;
@@ -984,7 +966,6 @@ Please enter valid name:");
                             message = string.Format("Vehicle no. {0} has been charged succesfully", licenseNumberOfVehicle);
                             Console.WriteLine(message);
                         }
-                        
                         catch(ValueOutOfRangeException ex)
                         {
                             clear();
@@ -992,7 +973,6 @@ Please enter valid name:");
                             isUserChoiceValid = false;
                             Console.WriteLine(message);
                         }
-
                     }
                     while (!isUserChoiceValid);
                 }
@@ -1002,13 +982,13 @@ Please enter valid name:");
                 vehicleDoesNotExist();
             }
         }
+
         private void chargeVehicle()
         {
             try
             {
                 chargeElectricVehicle();
             }
-
             catch (ArgumentException)
             {
                 string exceptionMessage;
@@ -1046,7 +1026,6 @@ Please enter valid name:");
                     Console.WriteLine(exceptionMessage);
                     isUserChoiceValid = false;
                 }
-
                 catch (OverflowException)
                 {
                     string exceptionMessage;
@@ -1056,8 +1035,8 @@ Please enter valid name:");
                     Console.WriteLine(exceptionMessage);
                     isUserChoiceValid = false;
                 }
-
-            } while (!isUserChoiceValid);
+            }
+            while (!isUserChoiceValid);
 
             return batteryAmountToAdd;
         }
@@ -1088,7 +1067,7 @@ Please enter valid name:");
             printGeneralVehicleDetails(i_CustomerToShowDetails);
             foreach (KeyValuePair<string, string> attribute in specificVehicleDetails)
             {
-                Console.WriteLine("      {0} : {1}", attribute.Key,attribute.Value);
+                Console.WriteLine("      {0} : {1}", attribute.Key, attribute.Value);
             }
 
             holdScreen();
@@ -1102,7 +1081,7 @@ Please enter valid name:");
             ownerPhoneNumber = i_CustomerToShowDetails.PhoneNumber;
             vehicleStatus = i_CustomerToShowDetails.VehicleStatus.ToString();
             ownerDetails = string.Format(@"         Owner Details{0}
-      Owner name: {1}{0}      Owner phone number: {2}{0}      Owner's vehicle status: {3}{0}", Environment.NewLine, ownerName, ownerPhoneNumber, vehicleStatus);
+            Owner name: {1}{0}      Owner phone number: {2}{0}      Owner's vehicle status: {3}{0}", Environment.NewLine, ownerName, ownerPhoneNumber, vehicleStatus);
             Console.WriteLine(ownerDetails);
         }
 
@@ -1118,7 +1097,7 @@ Please enter valid name:");
             tireCurrentPressure = i_CustomerToShowDetails.Vehicle.Tires[0].CurrentPressure;
             tireMaxPressure = i_CustomerToShowDetails.Vehicle.Tires[0].MaximumPressure;
             generalVehicleDetails = string.Format(@"         Vehicle Details{0}{0}      License number: {1}{0}      Model name: {2}{0}      Energy percentage left: {3}%
-      Manufacturer name: {4}{0}      Current tire pressure: {5}{0}      Maximum tire pressure: {6}", Environment.NewLine, licenseNumber, modelName, energyPercentageLeft, tireManufacturerName, tireCurrentPressure, tireMaxPressure);
+            Manufacturer name: {4}{0}      Current tire pressure: {5}{0}      Maximum tire pressure: {6}", Environment.NewLine, licenseNumber, modelName, energyPercentageLeft, tireManufacturerName, tireCurrentPressure, tireMaxPressure);
             Console.WriteLine(generalVehicleDetails);
         }
 
@@ -1174,6 +1153,7 @@ Please enter valid name:");
                     numOfLicense++;
                 }
             }
+
             holdScreen();
         }
 
@@ -1216,7 +1196,7 @@ Please enter valid name:");
             int userChoiceInt;
 
             isParsingSuccessed = int.TryParse(i_UserChoice, out userChoiceInt);
-            res = isParsingSuccessed && 1 <= userChoiceInt && userChoiceInt <= i_MaxOption;
+            res = isParsingSuccessed && userChoiceInt >= 1 && userChoiceInt <= i_MaxOption;
 
             return res;
         }
@@ -1270,12 +1250,14 @@ Please enter valid name:");
             StringBuilder vehicleTypes = new StringBuilder(100); // TODO: think other capacity, maybe const?
 
             numberOfVeicleType = 0;
+
             // this foreach loop passing all the vehicles supported in the garage and add its names to string.
             foreach (VehicleAllocator.eVehicleTypes vehicleType in (VehicleAllocator.eVehicleTypes[])Enum.GetValues(typeof(VehicleAllocator.eVehicleTypes)))
             {
                 numberOfVeicleType++;
                 vehicleTypes.AppendFormat("{0}. {1}{2}", numberOfVeicleType, vehicleType.ToString(), Environment.NewLine);
             }
+
             message = string.Format("Please enter vehicle type from the list below:{0}{1}", Environment.NewLine, vehicleTypes);
             invalidMessage = string.Format("Invalid input, Please enter a correct number of veichle from the list below:{0}{1}", Environment.NewLine, vehicleTypes);
             clear();
@@ -1387,7 +1369,6 @@ Please enter valid name:");
 
             return res;
         }
-
 
         private void clear()
         {

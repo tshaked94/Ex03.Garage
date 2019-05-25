@@ -15,7 +15,6 @@ namespace Ex03.GarageLogic
             Truck
         }
 
-
         public Vehicle MakeNewVehicle(eVehicleTypes vehicleType)
         {
             Vehicle newVehicle = null;
