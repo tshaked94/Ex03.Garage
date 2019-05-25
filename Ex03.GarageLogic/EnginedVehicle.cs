@@ -62,7 +62,7 @@ namespace Ex03.GarageLogic
 
         public void Refuel(float i_AmountOfFuelToAdd, eFuelType i_FuelTypeToAdd)
         {
-            // TODO: add exceptions
+            // this method gets a fuel type and amount of fuel to add and refuel the car if the fuel type fits and amount is in range.
             bool isFuelTypeFits, isFuelAmountInRange;
 
             isFuelTypeFits = i_FuelTypeToAdd == m_FuelType;

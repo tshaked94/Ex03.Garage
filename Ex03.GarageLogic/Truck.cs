@@ -13,6 +13,7 @@ namespace Ex03.GarageLogic
 
         public Truck()
         {
+            // truck c'tor
             m_FuelType = EnginedVehicle.eFuelType.Soler;
             m_MaximumFuelAmount = k_MaximumFuelAmount;
             for (int i = 1; i <= 12; i++) 
@@ -51,6 +52,7 @@ namespace Ex03.GarageLogic
 
         public override List<KeyValuePair<string, string>> VehicleInformationByType()
         {
+            // this method return a list of pairs of attributes as strings.
             int numberOfAttributes = 5;
             List<KeyValuePair<string, string>> informationList = new List<KeyValuePair<string, string>>(numberOfAttributes);
             string containsDangerousMaterials;

@@ -13,6 +13,7 @@ namespace Ex03.GarageLogic
 
         public EnginedMotorbike()
         {
+            // engined motorbike c'tor
             m_VehicleTires.Add(new Tire(k_TirePressure));
             m_VehicleTires.Add(new Tire(k_TirePressure));
             m_FuelType = EnginedMotorbike.eFuelType.Octan95;
@@ -49,6 +50,7 @@ namespace Ex03.GarageLogic
 
         public override List<KeyValuePair<string, string>> VehicleInformationByType()
         {
+            // this method return a list of pairs of attributes as string
             int numberOfAttributes = 6;
             List<KeyValuePair<string, string>> informationList = new List<KeyValuePair<string, string>>(numberOfAttributes);
             

@@ -11,7 +11,7 @@ namespace Ex03.GarageLogic
 
         public void Charge(float i_AmountOfHoursToAddToBattery)
         {
-            // TODO: add exceptions
+            // this method gets amount of hours to add to the battery and charging it if its not out of range
             bool isBatteryLifeInRange;
 
             isBatteryLifeInRange = (i_AmountOfHoursToAddToBattery >= 0) && (m_BatteryLifeLeft + i_AmountOfHoursToAddToBattery <= m_MaximumBatteryLife);

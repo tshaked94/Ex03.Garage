@@ -13,6 +13,7 @@ namespace Ex03.GarageLogic
 
         public ElectricCar()
         {
+            // electric car c'tor
             m_VehicleTires.Add(new Tire(k_TirePressure));
             m_VehicleTires.Add(new Tire(k_TirePressure));
             m_VehicleTires.Add(new Tire(k_TirePressure));
@@ -50,6 +51,7 @@ namespace Ex03.GarageLogic
 
         public override List<KeyValuePair<string, string>> VehicleInformationByType()
         {
+            // this method return a list of pairs of attributes as strings
             int numberOfAttributes = 5;
             List<KeyValuePair<string, string>> informationList = new List<KeyValuePair<string, string>>(numberOfAttributes);
             

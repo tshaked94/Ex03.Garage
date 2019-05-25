@@ -20,6 +20,7 @@ namespace Ex03.GarageLogic
 
         public Customer(string i_OwnerName, string i_OwnerPhone, Vehicle i_Vehicle)
         {
+            // customer c'tor
             m_OwnerName = i_OwnerName;
             m_OwnerPhoneNumber = i_OwnerPhone;
             m_OwnerVehicle = i_Vehicle;

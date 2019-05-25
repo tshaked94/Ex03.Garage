@@ -17,6 +17,7 @@ namespace Ex03.GarageLogic
 
         public Vehicle MakeNewVehicle(eVehicleTypes vehicleType)
         {
+            // this method get a vehicle type and return a new vehicle according to the type recieved.
             Vehicle newVehicle = null;
 
             switch (vehicleType)

@@ -10,6 +10,7 @@ namespace Ex03.GarageLogic
 
         public void InflateVehicleTiresToMaximum(string i_LicenseNumber)
         {
+            // this method gets a license numbers and inflate the vehicle's tires to the maximum
             foreach(Tire tire in m_Customers[i_LicenseNumber.GetHashCode()].Vehicle.Tires)
             {
                 tire.Inflate(tire.MaximumPressure - tire.CurrentPressure);
@@ -18,6 +19,7 @@ namespace Ex03.GarageLogic
 
         public void AddNewCustomer(string i_OwnerName, string i_OwnerPhoneNumber, Vehicle i_VehicleCreated)
         {
+            // this method gets customer details and adding the customer to the dictionary
             Customer newCustomer;
             int hashCode;
 
@@ -28,11 +30,13 @@ namespace Ex03.GarageLogic
 
         public void ChangeVehicleStatus(string i_LicenseNumber, Customer.eVehicleStatus i_VehicleStatusToChange)
         {
+            // this method get a license number and a new status and changing the vehicle status.
             m_Customers[i_LicenseNumber.GetHashCode()].VehicleStatus = i_VehicleStatusToChange;
         }
 
         private float ToHour(float i_AmountOfMinutes)
         {
+            // this method recieve amount of minutes and return it as hour representation
             float minutesConvertedToHours;
 
             minutesConvertedToHours = i_AmountOfMinutes / 60;
@@ -42,6 +46,7 @@ namespace Ex03.GarageLogic
 
         public LinkedList<string> ShowLicenseNumbersByFilter(Customer.eVehicleStatus i_VehicleStatusFilter)
         {
+            // this method gets a status to filter the license numbers according to and adding the fit vehicles to the list.
             LinkedList<string> listOFNumbersToShow = new LinkedList<string>();
             
             foreach(Customer customer in m_Customers.Values)
@@ -57,6 +62,7 @@ namespace Ex03.GarageLogic
 
         public LinkedList<string> ShowAllLicenseNumbers()
         {
+            // this method return a list of strings of all the license numbers in the garage
             LinkedList<string> listOFNumbersToShow = new LinkedList<string>();
 
             foreach (Customer customer in m_Customers.Values)
@@ -89,6 +95,7 @@ namespace Ex03.GarageLogic
 
         public void SetTireCurrentPressure(Vehicle i_VehicleToSetDetails, float i_CurrentTirePressure)
         {
+            // this method get a vehicle and a tire pressuer and change the vehicle's tires to this pressure.
             float maximumTirePressure = i_VehicleToSetDetails.Tires[0].MaximumPressure;
 
             if (i_CurrentTirePressure > maximumTirePressure || i_CurrentTirePressure < 0)
@@ -135,6 +142,7 @@ namespace Ex03.GarageLogic
 
         public void SetLicenseNumber(string i_LicenseNumber, Vehicle i_VehicleToSet)
         {
+            // this method get a vehicle and a license number and set the vehicle's license number.
             i_VehicleToSet.LicenseNumber = i_LicenseNumber;
         }
 
@@ -146,13 +154,9 @@ namespace Ex03.GarageLogic
             i_TruckToSetDetails.IsContainingDangerousMaterials = isContainingDangerousCargo;
         }
 
-        public void ChangeCustomerVehicleStatus(string i_LicenseNumberOfVehicle, Customer.eVehicleStatus i_NewVehicleStatus)
-        {
-            m_Customers[i_LicenseNumberOfVehicle.GetHashCode()].VehicleStatus = i_NewVehicleStatus;
-        }
-
         public bool isVehicleInGarage(string i_LicenseNumber)
         {
+            // this method get a license number and return a boolean represents if the vehicle is in the garage.
             bool isVehicleFound = false;
 
             isVehicleFound = m_Customers.ContainsKey(i_LicenseNumber.GetHashCode());
@@ -171,6 +175,7 @@ namespace Ex03.GarageLogic
 
         public Customer CustomerDetails(string i_LicenseNumberOfVehicle)
         {
+            // this method get a license number and return the customer
             Customer customerToShowDetails;
 
             customerToShowDetails = m_Customers[i_LicenseNumberOfVehicle.GetHashCode()];
@@ -200,6 +205,7 @@ namespace Ex03.GarageLogic
 
         public bool IsEnginedVehicle(string i_LicenseNumberOfVehicle)
         {
+            // this method get a license number and return a boolean represents if vehicle is engined
             bool isEngined;
 
             isEngined = m_Customers[i_LicenseNumberOfVehicle.GetHashCode()].Vehicle is EnginedVehicle;
@@ -209,6 +215,7 @@ namespace Ex03.GarageLogic
 
         public bool areFuelTypesEquals(string i_LicenseNumberOfVehicle, EnginedVehicle.eFuelType fuelType)
         {
+            // this method get a license number and a fuel type and return true if the fuel types are the same.
             bool isFuelEquals;
 
             if ((m_Customers[i_LicenseNumberOfVehicle.GetHashCode()].Vehicle as EnginedVehicle).FuelType == fuelType)
@@ -225,6 +232,7 @@ namespace Ex03.GarageLogic
 
         public bool IsElectricVehicle(string i_LicenseNumberOfVehicle)
         {
+            // this method get a license number and return true if it is an electric vehicle.
             bool isElectric;
 
             isElectric = m_Customers[i_LicenseNumberOfVehicle.GetHashCode()].Vehicle is ElectricVehicle;

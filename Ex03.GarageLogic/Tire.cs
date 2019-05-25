@@ -12,6 +12,7 @@ namespace Ex03.GarageLogic
 
         public Tire(float i_MaximumTirePressure)
         {
+            // tire c'tor.
             m_MaximumPressure = i_MaximumTirePressure;
         }
 
@@ -59,7 +60,7 @@ namespace Ex03.GarageLogic
 
         public void Inflate(float i_AmountOfAirToAdd)
         {
-            // TODO: add out of range exception.
+            // this method get amount of air to add and inflating the tire.
             bool isAirPressureInRange;
 
             isAirPressureInRange = (m_CurrentPressure + i_AmountOfAirToAdd) <= m_MaximumPressure;

@@ -23,6 +23,7 @@ namespace Ex03.ConsoleUI
 
         public void Run()
         {
+            // this is the main method which maintains the main loop.
             eUserOptions userChoice;
             do
             {
@@ -58,6 +59,7 @@ namespace Ex03.ConsoleUI
 
         private eUserOptions getUserChoice()
         {
+            // this method is getting the user choice from the main menu and return it as eUserOptions
             eUserOptions userChoice;
             string userChoiceString;
             int userChoiceInt;
@@ -82,6 +84,7 @@ namespace Ex03.ConsoleUI
 
         private void showMenu()
         {
+            // this method is printing the main menu.
             string[] menuOptions =
             {
                 "1. Add a new vehicle to garage",
@@ -168,6 +171,7 @@ namespace Ex03.ConsoleUI
 
         private void assignValidInputToCurrentTirePressure(Vehicle i_VehicleToSet)
         {
+            // this method is getting user input and assigning a valid input to tire pressure.
             float currentTirePressure;
             bool isValidInput;
             do
@@ -326,6 +330,7 @@ namespace Ex03.ConsoleUI
 
         private int requestEngineVolume()
         {
+            // this method get the user input for engine volume.
             string engineVolumeString;
             int engineVolumeInt = 0;
             bool isUserChoiceValid;
@@ -414,7 +419,7 @@ namespace Ex03.ConsoleUI
 
                     clear();
                     exceptionMessage = string.Format(@"Invalid input, please enter a number between {0} to {1}
-                    represents the number of doors", ex.MinValue, ex.MaxValue);
+represents the number of doors", ex.MinValue, ex.MaxValue);
                     Console.WriteLine(exceptionMessage);
                     isUserChoiceValid = false;
                 }
@@ -592,7 +597,7 @@ Please enter valid tire's manufacaturer name:");
 
                     clear();
                     exceptionMessage = string.Format(@"Invalid input, please enter a float number between {0} to {1}
-                    represents the energy percentage left", ex.MinValue, ex.MaxValue);
+represents the energy percentage left", ex.MinValue, ex.MaxValue);
                     Console.WriteLine(exceptionMessage);
                     isUserChoiceValid = false;
                 }
@@ -602,7 +607,7 @@ Please enter valid tire's manufacaturer name:");
 
                     clear();
                     exceptionMessage = string.Format(@"Invalid input, please enter a float number
-                    represents the percentage of energy left");
+represents the percentage of energy left");
                     Console.WriteLine(exceptionMessage);
                     isUserChoiceValid = false;
                 }
@@ -624,6 +629,7 @@ Please enter a float number represents the percentage of energy left");
 
         private void vehicleStatusHasBeenChangedToRepairing()
         {
+            // this method prints a message to the user saying the status has been changed to repairing
             clear();
             Console.WriteLine("Vehicle status has been changed to repairing.");
         }
@@ -637,6 +643,7 @@ Please enter a float number represents the percentage of energy left");
 
         private string requestOwnerPhoneNumber()
         {
+            // this method get user input for owner phone number and return it as a string
             bool isPhoneNumberValid;
             string ownerPhoneNumber = null;
             int phoneNumberInt;
@@ -678,6 +685,7 @@ Please enter a float number represents the percentage of energy left");
 
         private string requestOwnerName()
         {
+            // this method get user input for owner name and return it as a string
             string ownerName = null;
             bool isInputValid;
 
@@ -732,7 +740,7 @@ Please enter valid name:");
             if (isVehicleFound)
             {
                 newVehicleStatus = requestNewVehicleStatus();
-                m_Garage.ChangeCustomerVehicleStatus(licenseNumberOfVehicle, newVehicleStatus);
+                m_Garage.ChangeVehicleStatus(licenseNumberOfVehicle, newVehicleStatus);
                 clear();
                 message = string.Format("Vehicle's no.{0} status has been changed succesfully to {1}", licenseNumberOfVehicle, newVehicleStatus.ToString());
                 Console.WriteLine(message);
@@ -747,6 +755,7 @@ Please enter valid name:");
 
         private void inflateTiresToMaximum()
         {
+            // this method get license number from user and calls logid to inflate the vehicle's tires to maximum.
             string licenseNumberOfVehicle, message;
             bool isVehicleFound;
 
@@ -769,6 +778,7 @@ Please enter valid name:");
 
         private void fuelEnginedVehicle()
         {
+            // this method getting user input needed for fueling engined vehicle.
             try
             {
                fuelRegularEnginedVehicle();
@@ -787,6 +797,7 @@ Please enter valid name:");
 
         private void fuelRegularEnginedVehicle()
         {
+            // this method get license number and fuel type and calls logic to fuel the vehicle.
             string licenseNumberOfVehicle, message;
             bool isVehicleFound, isEngined;
 
@@ -815,6 +826,7 @@ Please enter valid name:");
 
         private void assignValidInputToCurrentFuelAmount(string i_LicenseNumberOfVehicle)
         {
+            // this method assigning valid input to the current fuel amount to add.
             bool isUserChoiceValid, isFuelTypeValid;
             EnginedVehicle.eFuelType fuelType;
             float amountOfFuelToAdd;
@@ -873,6 +885,7 @@ Please enter valid name:");
 
         private float requestAmountOfFuelToAdd()
         {
+            // this method get the amount of fuel to add from user and return it as float
             string fuelAmountToAddString;
             float fuelAmountToAdd = 0f;
             bool isUserChoiceValid;
@@ -913,6 +926,7 @@ Please enter valid name:");
 
         private EnginedVehicle.eFuelType requestFuelType()
         {
+            // this method get the fuel type from user and return it as eFuelType
             EnginedVehicle.eFuelType fuelType;
             string userChoiceString;
             int userChoiceInt;
@@ -939,6 +953,7 @@ Please enter valid name:");
 
         private void chargeElectricVehicle()
         {
+            // this method get license number and amount of minutes to charge and calling logic to charge the vehicle.
             string licenseNumberOfVehicle, message;
             bool isVehicleFound, isElectric, isUserChoiceValid;
             float amountOfMinutesToCharge;
@@ -985,6 +1000,7 @@ Please enter valid name:");
 
         private void chargeVehicle()
         {
+            // this method getting the needed input from user in order to charge electric vehicle
             try
             {
                 chargeElectricVehicle();
@@ -1003,6 +1019,7 @@ Please enter valid name:");
 
         private float requestAmountOfMinutesToCharge()
         {
+            // this method get the amount of minutes to charge from user and return it as float.
             string batteryAmountToAddString;
             float batteryAmountToAdd = 0f;
             bool isUserChoiceValid;
@@ -1043,6 +1060,7 @@ Please enter valid name:");
 
         private void showAllDetailsOfCustomer()
         {
+            // this method get license number from user and showing all customer details.
             string licenseNumberOfVehicle;
             bool isVehicleFound;
             Customer customerToShowDetails;
@@ -1061,6 +1079,7 @@ Please enter valid name:");
         
         private void printAllCustomerDetails(Customer i_CustomerToShowDetails)
         {
+            // this method get a customer and print all the details of the customer.
             List<KeyValuePair<string, string>> specificVehicleDetails = i_CustomerToShowDetails.Vehicle.VehicleInformationByType();
 
             printOwnerDetails(i_CustomerToShowDetails);
@@ -1075,6 +1094,7 @@ Please enter valid name:");
 
         private void printOwnerDetails(Customer i_CustomerToShowDetails)
         {
+            // this method get a customer and print the owner's details.
             string ownerName, ownerPhoneNumber, vehicleStatus, ownerDetails;
 
             ownerName = i_CustomerToShowDetails.Name;
@@ -1087,6 +1107,7 @@ Please enter valid name:");
 
         private void printGeneralVehicleDetails(Customer i_CustomerToShowDetails)
         {
+            // this method get a customer and prints the general vehicle details.
             string modelName, licenseNumber, tireManufacturerName, generalVehicleDetails;
             float energyPercentageLeft, tireCurrentPressure, tireMaxPressure;
 
@@ -1103,6 +1124,7 @@ Please enter valid name:");
 
         private void holdScreen()
         {
+            // this method is holding the screen.
             Console.WriteLine("Press any key to go back to main menu...");
             Console.ReadKey();
             clear();
@@ -1110,6 +1132,7 @@ Please enter valid name:");
 
         private Customer.eVehicleStatus requestNewVehicleStatus()
         {
+            // this method get new vehicle status from user and return it as eVehicleStatus
             Customer.eVehicleStatus newVehicleStatus;
             string newVehicleStatusString;
             bool isUserChoiceValid;
@@ -1136,6 +1159,7 @@ Please enter valid name:");
 
         private void printLicenseNumbers(LinkedList<string> licenseNumbersToShow)
         {
+            // this method get a list of licesne numbers and print it.
             string message;
             int numOfLicense = 1;
 
@@ -1159,6 +1183,7 @@ Please enter valid name:");
 
         private Customer.eVehicleStatus requestStatusFilter()
         {
+            // this method get status filter from the user and return it as eVehicleStatus
             Customer.eVehicleStatus userStatusFilter;
             string userStatusFilterString, message1, message2, statusFilters;
             bool isValidInput;
@@ -1236,12 +1261,14 @@ Please enter valid name:");
 
         private void vehicleDoesNotExist()
         {
+            // this method print a message to the user saying vehicle does not exist.
             clear();
             Console.WriteLine("This vehicle does not exist.");
         }
 
         private VehicleAllocator.eVehicleTypes requestVehicleTypeFromUser()
         {
+            // this method get a vehicle type from user and return it as eVehicleTypes
             VehicleAllocator.eVehicleTypes userVeichleType;
             string userVeichleTypeString, message, invalidMessage;
             bool isValidInput;
@@ -1282,6 +1309,7 @@ Please enter valid name:");
 
         private string requestLicenseNumber()
         {
+            // this method get a license number from user and reutnr it as string.
             string userLicenseNumber;
             bool isValidInput;
 
@@ -1302,6 +1330,7 @@ Please enter valid name:");
 
         private bool IsAllDigits(string i_StringToCheck)
         {
+            // this method get a string and return true if it contains only digits.
             bool res = true;
 
             foreach (char character in i_StringToCheck)
@@ -1340,6 +1369,7 @@ Please enter valid name:");
 
         private bool isContainLetter(string i_StringToCheck)
         {
+            // this method get a string and return true if it contains a letter
             bool res = false;
 
             foreach (char character in i_StringToCheck)
@@ -1356,6 +1386,7 @@ Please enter valid name:");
 
         private bool isContainDigit(string i_StringToCheck)
         {
+            // this method get a string and return true if it contains a digit
             bool res = false;
 
             foreach (char character in i_StringToCheck)
@@ -1372,6 +1403,7 @@ Please enter valid name:");
 
         private void clear()
         {
+            // this method clears the screen.
             Ex02.ConsoleUtils.Screen.Clear();
         }
     }
