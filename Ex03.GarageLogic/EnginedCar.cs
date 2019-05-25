@@ -48,7 +48,7 @@ namespace Ex03.GarageLogic
                 m_CarColor = value;
             }
         }
-        public override List<KeyValuePair<string, string>> Inforamtion()
+        public override List<KeyValuePair<string, string>> VehicleInformationByType()
         {
             int numberOfAttributes = 5;
 

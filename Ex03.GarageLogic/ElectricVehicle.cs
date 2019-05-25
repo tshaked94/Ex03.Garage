@@ -19,6 +19,10 @@ namespace Ex03.GarageLogic
             {
                 m_BatteryLifeLeft += i_AmountOfHoursToAddToBattery;
             }
+            else
+            {
+                throw new ValueOutOfRangeException(m_MaximumBatteryLife - m_BatteryLifeLeft, 0);
+            }
         }
 
         public float MaximumBatteryLife

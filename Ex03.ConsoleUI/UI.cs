@@ -122,11 +122,11 @@ namespace Ex03.ConsoleUI
             }
             else
             {
-                getOwnerDetails(out ownerName, out ownerPhoneNumber);
-                vehicleType = getVehicleTypeFromUser();
+                requestOwnerDetails(out ownerName, out ownerPhoneNumber);
+                vehicleType = requestVehicleTypeFromUser();
                 vehicleCreated = VehicleAllocator.MakeNewVehicle(vehicleType);
                 m_Garage.SetLicenseNumber(licenseNumber, vehicleCreated);
-                getVehicleDetails(vehicleCreated);
+                requestVehicleDetails(vehicleCreated);
                 m_Garage.AddNewCustomer(ownerName, ownerPhoneNumber, vehicleCreated);
                 clear();
                 Console.WriteLine("Customer added succesfully");
@@ -135,7 +135,7 @@ namespace Ex03.ConsoleUI
             holdScreen();
         }
 
-        private void getVehicleDetails(Vehicle i_VehicleToSetDetails)
+        private void requestVehicleDetails(Vehicle i_VehicleToSetDetails)
         {
             // this method gets the vehicle details from the user.
             string modelName, tiresManufacaturerName;
@@ -145,24 +145,24 @@ namespace Ex03.ConsoleUI
             int numberOfDoors, engineVolume;
             bool isContainingDangerousCargo;
 
-            modelName = getModelName();
-            energyPercentageLeft = getEnergyPercentageLeft();
-            tiresManufacaturerName = getTireManufacaturerName();
+            modelName = requestModelName();
+            energyPercentageLeft = requestEnergyPercentageLeft();
+            tiresManufacaturerName = requestTireManufacaturerName();
             m_Garage.SetVehicleDetails(i_VehicleToSetDetails, modelName, tiresManufacaturerName, energyPercentageLeft);
             assignValidInputToCurrentTirePressure(i_VehicleToSetDetails);
             if (i_VehicleToSetDetails is EnginedCar || i_VehicleToSetDetails is ElectricCar)
             {
-                getCarDetails(out carColor, out numberOfDoors);
+                requestCarDetails(out carColor, out numberOfDoors);
                 m_Garage.SetCarDetails(i_VehicleToSetDetails, carColor, numberOfDoors);
             }
             else if (i_VehicleToSetDetails is EnginedMotorbike || i_VehicleToSetDetails is ElectricMotorbike)
             {
-                getMotorbikeDetails(out engineVolume, out motorbikeLicenseType);
+                requestMotorbikeDetails(out engineVolume, out motorbikeLicenseType);
                 m_Garage.SetMotorbikeDetails(i_VehicleToSetDetails, engineVolume, motorbikeLicenseType);
             }
             else if (i_VehicleToSetDetails is Truck)
             {
-                getTruckDetails(out cargoVolume, out isContainingDangerousCargo);
+                requestTruckDetails(out cargoVolume, out isContainingDangerousCargo);
                 m_Garage.SetTruckDetails(i_VehicleToSetDetails as Truck, cargoVolume, isContainingDangerousCargo);
             }
         }
@@ -173,7 +173,7 @@ namespace Ex03.ConsoleUI
             bool isValidInput;
             do
             {
-                currentTirePressure = getCurrentTiresPressure();
+                currentTirePressure = requestCurrentTiresPressure();
                 try
                 {
                     m_Garage.SetTireCurrentPressure(i_VehicleToSet, currentTirePressure);
@@ -192,14 +192,14 @@ namespace Ex03.ConsoleUI
             while (!isValidInput);
         }
 
-        private void getTruckDetails(out float o_CargoVolume, out bool o_IsContainingDangerousCargo)
+        private void requestTruckDetails(out float o_CargoVolume, out bool o_IsContainingDangerousCargo)
         {
             // this method gets the truck details from the user.
-            o_IsContainingDangerousCargo = getDangerousCargoDetail();
-            o_CargoVolume = getCargoVolumeDetail();
+            o_IsContainingDangerousCargo = requestDangerousCargoDetail();
+            o_CargoVolume = requestCargoVolumeDetail();
         }
 
-        private float getCargoVolumeDetail()
+        private float requestCargoVolumeDetail()
         {
             // this method asks the user the cargo volume of the truck and return it as a float.
             string userChoiceString;
@@ -246,7 +246,7 @@ namespace Ex03.ConsoleUI
             return cargoVolumeFloat;
         }
 
-        private bool getDangerousCargoDetail()
+        private bool requestDangerousCargoDetail()
         {
             // this method asking the user if the truck contains dangerous cargo and return it as bool.
             string userChoiceString;
@@ -280,14 +280,14 @@ namespace Ex03.ConsoleUI
             return isContainingDangerousCargo;
         }
 
-        private void getMotorbikeDetails(out int o_EngineVolume, out Utilities.eMotorbikeLicenseType o_MotorbikeLicenseType)
+        private void requestMotorbikeDetails(out int o_EngineVolume, out Utilities.eMotorbikeLicenseType o_MotorbikeLicenseType)
         {
             // this method get motorbike details from the user
-            o_EngineVolume = getEngineVolume();
-            o_MotorbikeLicenseType = getMotorbikeLicenseType();
+            o_EngineVolume = requestEngineVolume();
+            o_MotorbikeLicenseType = requestMotorbikeLicenseType();
         }
 
-        private Utilities.eMotorbikeLicenseType getMotorbikeLicenseType()
+        private Utilities.eMotorbikeLicenseType requestMotorbikeLicenseType()
         {
             // this method get motorbike license type from user.
             Utilities.eMotorbikeLicenseType userMotorbikeLicenseType;
@@ -316,7 +316,7 @@ namespace Ex03.ConsoleUI
             return userMotorbikeLicenseType;
         }
 
-        private int getEngineVolume()
+        private int requestEngineVolume()
         {
             string engineVolumeString;
             int engineVolumeInt = 0;
@@ -362,14 +362,14 @@ namespace Ex03.ConsoleUI
             return engineVolumeInt;
         }
 
-        private void getCarDetails(out Utilities.eCarColor o_CarColor, out int o_NumOfDoors)
+        private void requestCarDetails(out Utilities.eCarColor o_CarColor, out int o_NumOfDoors)
         {
             // this method get car details from the user
-            o_CarColor = getCarColor();
-            o_NumOfDoors = getNumOfDoors();
+            o_CarColor = requestCarColor();
+            o_NumOfDoors = requestNumOfDoors();
         }
 
-        private int getNumOfDoors()
+        private int requestNumOfDoors()
         {
             // this method get num of doors in car from the user.
             string numOfDoorsString;
@@ -418,7 +418,7 @@ represents the number of doors");
             return numOfDoorsInt;
         }
 
-        private Utilities.eCarColor getCarColor()
+        private Utilities.eCarColor requestCarColor()
         {
             // this method get car color from the user.
             // TODO: list of strings of car colors and print it instead of 1.red....
@@ -447,7 +447,7 @@ represents the number of doors");
             return carColor;
         }
 
-        private float getCurrentTiresPressure()
+        private float requestCurrentTiresPressure()
         {
             // this method get vehicle's current tires pressure.
             string tirePressuerString;
@@ -479,7 +479,7 @@ represents the number of doors");
             return tirePressureFloat;
         }
 
-        private string getTireManufacaturerName()
+        private string requestTireManufacaturerName()
         {
             // this method get the tire manufacaturer name.
             string manufacaturerName;
@@ -502,7 +502,7 @@ Please enter valid tire's manufacaturer name:");
             return manufacaturerName;
         }
 
-        private string getModelName()
+        private string requestModelName()
         {
             // this method gets the model name of the vehicle from the user.
             string modelName;
@@ -524,7 +524,7 @@ Please enter valid tire's manufacaturer name:");
             return modelName;
         }
 
-        private float getEnergyPercentageLeft()
+        private float requestEnergyPercentageLeft()
         {
             // this method gets the percentage of energy left from the user and return it as float.
             string energyLeftString;
@@ -576,14 +576,14 @@ represents the percentage of energy left");
             Console.WriteLine("Vehicle status has been changed to repairing.");
         }
 
-        private void getOwnerDetails(out string io_OwnerName, out string io_OwnerPhoneNumber)
+        private void requestOwnerDetails(out string io_OwnerName, out string io_OwnerPhoneNumber)
         {
             // this method request user to enter his name and his phone number, it return this data by out parameters
-            io_OwnerName = getOwnerName();
-            io_OwnerPhoneNumber = getOwnerPhoneNumber();
+            io_OwnerName = requestOwnerName();
+            io_OwnerPhoneNumber = requestOwnerPhoneNumber();
         }
 
-        private string getOwnerPhoneNumber()
+        private string requestOwnerPhoneNumber()
         {
             bool isPhoneNumberValid;
             string ownerPhoneNumber = null;
@@ -616,7 +616,7 @@ represents the percentage of energy left");
             return ownerPhoneNumber;
         }
 
-        private string getOwnerName()
+        private string requestOwnerName()
         {
             string ownerName = null;
             bool isInputValid;
@@ -630,7 +630,7 @@ represents the percentage of energy left");
             {
                 clear();
                 Console.WriteLine(@"Invalid owner name, empty or non letters only input not allowed.
-Please enter valid name:"); ;
+Please enter valid name:");
                 ownerName = Console.ReadLine();
                 isInputValid = isOwnerNameValid(ownerName) && !string.IsNullOrEmpty(ownerName);
 
@@ -661,9 +661,9 @@ Please enter valid name:"); ;
 
         private void changeCustomerVehicleStatus()
         {
-            // this method inform and change vehicle status.
+            // this method change vehicle status and inform the user.
             Customer.eVehicleStatus newVehicleStatus;
-            string licenseNumberOfVehicle;
+            string licenseNumberOfVehicle, message;
             bool isVehicleFound;
 
             licenseNumberOfVehicle = requestLicenseNumber();
@@ -672,6 +672,8 @@ Please enter valid name:"); ;
             {
                 newVehicleStatus = requestNewVehicleStatus();
                 m_Garage.ChangeCustomerVehicleStatus(licenseNumberOfVehicle, newVehicleStatus);
+                message = string.Format("Vehicle's no.{0} status has been changed succesfully to {1}", licenseNumberOfVehicle, newVehicleStatus.ToString());
+                Console.WriteLine(message);
             }
             else
             {
@@ -683,7 +685,7 @@ Please enter valid name:"); ;
 
         private void inflateTiresToMaximum()
         {
-            string licenseNumberOfVehicle;
+            string licenseNumberOfVehicle, message;
             bool isVehicleFound;
 
             licenseNumberOfVehicle = requestLicenseNumber();
@@ -691,8 +693,8 @@ Please enter valid name:"); ;
             if (isVehicleFound)
             {
                 m_Garage.InflateVehicleTiresToMaximum(licenseNumberOfVehicle);
-                Console.WriteLine("Tires has been sucsessfully inflated to maximum");
-                holdScreen();
+                message = string.Format("Vehicle's no. {0} tires has been sucsessfully inflated to maximum", licenseNumberOfVehicle);
+                Console.WriteLine(message);
             }
             else
             {
@@ -705,8 +707,9 @@ Please enter valid name:"); ;
         {
             try
             {
-                fuelRegularEnginedVehicle();
+               fuelRegularEnginedVehicle();
             }
+
             catch (ArgumentException)
             {
                 string exceptionMessage;
@@ -719,7 +722,7 @@ Please enter valid name:"); ;
         }
         private void fuelRegularEnginedVehicle()
         {
-            string licenseNumberOfVehicle;
+            string licenseNumberOfVehicle, message;
             bool isVehicleFound, isEngined;
 
             licenseNumberOfVehicle = requestLicenseNumber();
@@ -734,13 +737,14 @@ Please enter valid name:"); ;
                 else
                 {
                     assignValidInputToCurrentFuelAmount(licenseNumberOfVehicle);
+                    message = string.Format("Vehicle no. {0} has been fueled succesfully", licenseNumberOfVehicle);
+                    Console.WriteLine(message);
                 }
             }
             else
             {
                 vehicleDoesNotExist();
             }
-
         }
 
         private void assignValidInputToCurrentFuelAmount(string i_LicenseNumberOfVehicle)
@@ -750,7 +754,7 @@ Please enter valid name:"); ;
             float amountOfFuelToAdd;
 
             fuelType = requestFuelType();
-            isFuelTypeValid = m_Garage.isFuelTypesEquals(i_LicenseNumberOfVehicle, fuelType);
+            isFuelTypeValid = m_Garage.areFuelTypesEquals(i_LicenseNumberOfVehicle, fuelType);
             do
             {
                 try
@@ -774,7 +778,7 @@ Please enter valid name:"); ;
                     exceptionMessage = string.Format("Invalid fuel type, ");
                     Console.Write(exceptionMessage);
                     fuelType = requestFuelType();
-                    isFuelTypeValid = m_Garage.isFuelTypesEquals(i_LicenseNumberOfVehicle, fuelType);
+                    isFuelTypeValid = m_Garage.areFuelTypesEquals(i_LicenseNumberOfVehicle, fuelType);
 
                     isUserChoiceValid = false;
                 }
@@ -852,8 +856,8 @@ Please enter valid name:"); ;
 
         private void chargeElectricVehicle()
         {
-            string licenseNumberOfVehicle;
-            bool isVehicleFound, isElectric;
+            string licenseNumberOfVehicle, message;
+            bool isVehicleFound, isElectric, isUserChoiceValid;
             float amountOfMinutesToCharge;
 
             licenseNumberOfVehicle = requestLicenseNumber();
@@ -865,16 +869,33 @@ Please enter valid name:"); ;
                 {
                     throw new ArgumentException();
                 }
+                else
+                {
+                    do
+                    {
+                        try
+                        {
+                            amountOfMinutesToCharge = requestAmountOfMinutesToCharge();
+                            m_Garage.ChargeElectricVehicle(licenseNumberOfVehicle, amountOfMinutesToCharge);
+                            isUserChoiceValid = true;
+                            message = string.Format("Vehicle no. {0} has been charged succesfully", licenseNumberOfVehicle);
+                            Console.WriteLine(message);
+                        }
+                        
+                        catch(ValueOutOfRangeException ex)
+                        {
+                            Console.WriteLine("Invalid input, please enter a float number between {0} to {1} represents the amount of minutes to charge", ex.MinValue, ex.MaxValue);
+                            isUserChoiceValid = false;
+                        }
 
-                amountOfMinutesToCharge = requestAmountOfMinutesToCharge();
-                m_Garage.ChargeElectricVehicle(licenseNumberOfVehicle, amountOfMinutesToCharge);
+                    }
+                    while (!isUserChoiceValid);
+                }
             }
             else
             {
                 vehicleDoesNotExist();
             }
-
-            holdScreen();
         }
         private void chargeVehicle()
         {
@@ -882,6 +903,7 @@ Please enter valid name:"); ;
             {
                 chargeElectricVehicle();
             }
+
             catch (ArgumentException)
             {
                 string exceptionMessage;
@@ -889,6 +911,8 @@ Please enter valid name:"); ;
                 exceptionMessage = string.Format("Invalid input, you just choosed an engined vehicle to charge electric");
                 Console.WriteLine(exceptionMessage);
             }
+
+            holdScreen();
         }
 
         private float requestAmountOfMinutesToCharge()
@@ -942,7 +966,7 @@ Please enter valid name:"); ;
         
         private void printAllCustomerDetails(Customer i_CustomerToShowDetails)
         {
-            List<KeyValuePair<string, string>> specificVehicleDetails = i_CustomerToShowDetails.Vehicle.Inforamtion();
+            List<KeyValuePair<string, string>> specificVehicleDetails = i_CustomerToShowDetails.Vehicle.VehicleInformationByType();
 
             printOwnerDetails(i_CustomerToShowDetails);
             printGeneralVehicleDetails(i_CustomerToShowDetails);
@@ -953,11 +977,6 @@ Please enter valid name:"); ;
 
             holdScreen();
         }
-
- 
-
-
-
 
         private void printOwnerDetails(Customer i_CustomerToShowDetails)
         {
@@ -1013,7 +1032,7 @@ Please enter valid name:"); ;
                 isUserChoiceValid = isValidChoice(newVehicleStatusString, 3);
             }
 
-            // the parsing below will always a success, its validation occurs in the while loop
+            // the parsing below will always success. Its validation occurs in the while loop
             newVehicleStatusInt = int.Parse(newVehicleStatusString);
             newVehicleStatus = (Customer.eVehicleStatus)newVehicleStatusInt;
 
@@ -1059,7 +1078,7 @@ Please enter valid name:"); ;
                 isValidInput = isValidChoice(userStatusFilterString, numberOfStatus);
             }
 
-            // the parsing below will always a success, its validation occurs in the while loop
+            // the parsing below will always success. Its validation occurs in the while loop
             userStatusInt = int.Parse(userStatusFilterString);
             userStatusFilter = (Customer.eVehicleStatus)userStatusInt;
 
@@ -1081,6 +1100,7 @@ Please enter valid name:"); ;
 
         private bool askUserIfHeWantToFilterLicenseNumberByStatus()
         {
+            // this method asks the user if he want to filter license numbers by their status and return the answer as bool.
             string userChoiceString;
             bool isUserChoiceValid, didUserChoseToFilter;
             int userChoiceInt;
@@ -1116,7 +1136,7 @@ Please enter valid name:"); ;
             Console.WriteLine("This vehicle does not exist.");
         }
 
-        private VehicleAllocator.eVehicleTypes getVehicleTypeFromUser()
+        private VehicleAllocator.eVehicleTypes requestVehicleTypeFromUser()
         {
             // TODO: think about way to disply all supported vehcile types 
             VehicleAllocator.eVehicleTypes userVeichleType;
@@ -1181,7 +1201,7 @@ Please enter valid name:"); ;
 
             foreach (char character in i_StringToCheck)
             {
-                if (!Char.IsDigit(character))
+                if (!char.IsDigit(character))
                 {
                     res = false;
                     break;

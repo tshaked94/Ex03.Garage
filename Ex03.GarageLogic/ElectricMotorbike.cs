@@ -45,7 +45,7 @@ namespace Ex03.GarageLogic
                 m_LicenseType = value;
             }
         }
-        public override List<KeyValuePair<string, string>> Inforamtion()
+        public override List<KeyValuePair<string, string>> VehicleInformationByType()
         {
             int numberOfAttributes = 4;
             List<KeyValuePair<string, string>> informationList = new List<KeyValuePair<string, string>>(numberOfAttributes);

@@ -195,15 +195,7 @@ namespace Ex03.GarageLogic
             Vehicle vehicleToCharge;
 
             vehicleToCharge = m_Customers[i_LicenseNumberOfVehicle.GetHashCode()].Vehicle;
-            if (vehicleToCharge is ElectricVehicle)
-            {
-                (vehicleToCharge as ElectricVehicle).Charge(i_AmountOfMinutesToCharge);
-            }
-            else
-            {
-                // TODO: throw argument exception
-
-            }
+            (vehicleToCharge as ElectricVehicle).Charge(i_AmountOfMinutesToCharge / 60);
         }
 
         public bool IsEnginedVehicle(string i_LicenseNumberOfVehicle)
@@ -215,7 +207,7 @@ namespace Ex03.GarageLogic
             return isEngined;
         }
 
-        public bool isFuelTypesEquals(string i_LicenseNumberOfVehicle, EnginedVehicle.eFuelType fuelType)
+        public bool areFuelTypesEquals(string i_LicenseNumberOfVehicle, EnginedVehicle.eFuelType fuelType)
         {
             bool isFuelEquals;
 
