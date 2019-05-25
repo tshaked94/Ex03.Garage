@@ -14,10 +14,11 @@ namespace Ex03.GarageLogic
             // TODO: add exceptions
             bool isBatteryLifeInRange;
 
-            isBatteryLifeInRange = m_BatteryLifeLeft + i_AmountOfHoursToAddToBattery <= m_MaximumBatteryLife;
+            isBatteryLifeInRange = (i_AmountOfHoursToAddToBattery >= 0) && (m_BatteryLifeLeft + i_AmountOfHoursToAddToBattery <= m_MaximumBatteryLife);
             if(isBatteryLifeInRange)
             {
                 m_BatteryLifeLeft += i_AmountOfHoursToAddToBattery;
+                m_EnergyPercentage = (m_BatteryLifeLeft / m_MaximumBatteryLife) * 100;
             }
             else
             {

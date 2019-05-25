@@ -50,9 +50,10 @@ namespace Ex03.GarageLogic
         }
         public override List<KeyValuePair<string, string>> VehicleInformationByType()
         {
-            int numberOfAttributes = 5;
+            int numberOfAttributes = 6;
 
             List<KeyValuePair<string, string>> informationList = new List<KeyValuePair<string, string>>(numberOfAttributes);
+            informationList.Add(new KeyValuePair<string, string>("Vehicle type", GetType().Name));
             informationList.Add(new KeyValuePair<string, string>("Fuel type", Enum.GetName(typeof(eFuelType), (int)m_FuelType)));
             informationList.Add(new KeyValuePair<string, string>("Current fuel amount", string.Format("{0} liters", m_CurrentFuelAmount)));
             informationList.Add(new KeyValuePair<string, string>("Maximum fuel amount", string.Format("{0} liters", m_MaximumFuelAmount)));

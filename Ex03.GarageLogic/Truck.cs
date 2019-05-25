@@ -55,6 +55,7 @@ namespace Ex03.GarageLogic
             string containsDangerousMaterials;
 
             containsDangerousMaterials = v_IsContainingDangerousMaterials == true ? "Yes" : "No";
+            informationList.Add(new KeyValuePair<string, string>("Vehicle type", GetType().Name));
             informationList.Add(new KeyValuePair<string, string>("Fuel type", Enum.GetName(typeof(eFuelType), (int)m_FuelType)));
             informationList.Add(new KeyValuePair<string, string>("Current fuel amount", string.Format("{0} liters", m_CurrentFuelAmount)));
             informationList.Add(new KeyValuePair<string, string>("Maximum fuel amount", string.Format("{0} liters", m_MaximumFuelAmount)));

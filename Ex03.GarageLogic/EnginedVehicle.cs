@@ -60,10 +60,11 @@ namespace Ex03.GarageLogic
             bool isFuelTypeFits, isFuelAmountInRange;
 
             isFuelTypeFits = i_FuelTypeToAdd == m_FuelType;
-            isFuelAmountInRange = i_AmountOfFuelToAdd + m_CurrentFuelAmount <= m_MaximumFuelAmount && i_AmountOfFuelToAdd + m_CurrentFuelAmount > 0;
+            isFuelAmountInRange = (i_AmountOfFuelToAdd >= 0) && (i_AmountOfFuelToAdd + m_CurrentFuelAmount <= m_MaximumFuelAmount);
             if(isFuelAmountInRange && isFuelTypeFits)
             {
                 m_CurrentFuelAmount += i_AmountOfFuelToAdd;
+                m_EnergyPercentage = (m_CurrentFuelAmount / m_MaximumFuelAmount) * 100;
             }
             else
             {
