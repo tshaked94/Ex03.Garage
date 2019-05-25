@@ -428,13 +428,13 @@ represents the number of doors");
             int carColorInt;
 
             clear();
-            Console.WriteLine("Please choose car color from the list below:{0}1.Red{0}2.Blue{0}3.Black{0}4.Grey", Environment.NewLine);
+            Console.WriteLine("Please choose car color from the list below:{0}1. Red{0}2. Blue{0}3. Black{0}4. Grey", Environment.NewLine);
             carColorString = Console.ReadLine();
             isUserChoiceValid = isValidChoice(carColorString, 4);
             while (!isUserChoiceValid)
             {
                 clear();
-                Console.WriteLine("Invalid input. Please choose car color from the list below:{0}1.Red{0}2.Blue{0}3.Black{0}4.Grey", Environment.NewLine);
+                Console.WriteLine("Invalid input. Please choose car color from the list below:{0}1. Red{0}2. Blue{0}3. Black{0}4. Grey", Environment.NewLine);
                 carColorString = Console.ReadLine();
                 isUserChoiceValid = isValidChoice(carColorString, 4);
             }
@@ -714,6 +714,8 @@ Please enter valid name:"); ;
                 exceptionMessage = string.Format("Invalid input, you just choosed an electric vehicle to refuel gas");
                 Console.WriteLine(exceptionMessage);
             }
+
+            holdScreen();
         }
         private void fuelRegularEnginedVehicle()
         {
@@ -739,7 +741,6 @@ Please enter valid name:"); ;
                 vehicleDoesNotExist();
             }
 
-            holdScreen();
         }
 
         private void assignValidInputToCurrentFuelAmount(string i_LicenseNumberOfVehicle)
@@ -938,122 +939,25 @@ Please enter valid name:"); ;
                 vehicleDoesNotExist();
             }
         }
-
+        
         private void printAllCustomerDetails(Customer i_CustomerToShowDetails)
         {
+            List<KeyValuePair<string, string>> specificVehicleDetails = i_CustomerToShowDetails.Vehicle.Inforamtion();
+
             printOwnerDetails(i_CustomerToShowDetails);
             printGeneralVehicleDetails(i_CustomerToShowDetails);
-            if (i_CustomerToShowDetails.Vehicle is ElectricVehicle)
+            foreach (KeyValuePair<string, string> attribute in specificVehicleDetails)
             {
-                printElectricVehicleDetails(i_CustomerToShowDetails.Vehicle as ElectricVehicle);
-            }
-            else if (i_CustomerToShowDetails.Vehicle is EnginedVehicle)
-            {
-                printEnginedVehicleDetails(i_CustomerToShowDetails.Vehicle as EnginedVehicle);
+                Console.WriteLine("      {0} : {1}", attribute.Key,attribute.Value);
             }
 
             holdScreen();
         }
 
-        private void printEnginedVehicleDetails(EnginedVehicle i_EnginedVehicle)
-        {
-            string fuelType, enginedVehicleDetails;
-            float currentFuelAmount, maximumFuelAmount;
+ 
 
-            fuelType = i_EnginedVehicle.FuelType.ToString();
-            currentFuelAmount = i_EnginedVehicle.CurrentFuelAmount;
-            maximumFuelAmount = i_EnginedVehicle.MaximumFuelAmount;
-            enginedVehicleDetails = string.Format("      Fuel type is: {1}{0}      Current fuel amount is: {2}{0}      Maximum fuel amount is: {3}{0}      ", Environment.NewLine, fuelType, currentFuelAmount, maximumFuelAmount);
-            Console.WriteLine(enginedVehicleDetails);
-            if (i_EnginedVehicle is EnginedCar)
-            {
-                printEnginedCarDetails(i_EnginedVehicle as EnginedCar);
-            }
-            else if (i_EnginedVehicle is EnginedMotorbike)
-            {
-                printEnginedMotorbikeDetails(i_EnginedVehicle as EnginedMotorbike);
-            }
-            else if (i_EnginedVehicle is Truck)
-            {
-                printTruckDetails(i_EnginedVehicle as Truck);
-            }
-        }
 
-        private void printTruckDetails(Truck truck)
-        {
-            string truckDetails, yesOrNo;
-            float cargoVolume;
-            bool isContainingDangerousCargo;
 
-            isContainingDangerousCargo = truck.IsContainingDangerousMaterials;
-            yesOrNo = isContainingDangerousCargo == true ? "Yes" : "No";
-            cargoVolume = truck.CargoVolume;
-            truckDetails = string.Format("      Does the truck contains dangerous cargo?: {1}{0}      The cargo volume is: {2}", Environment.NewLine, yesOrNo, cargoVolume);
-            Console.WriteLine(truckDetails);
-        }
-
-        private void printEnginedMotorbikeDetails(EnginedMotorbike i_EnginedMotorbike)
-        {
-            string electricMotorBikeDetails, licenseTypeString;
-            int engineVolume;
-
-            licenseTypeString = i_EnginedMotorbike.LicenseType.ToString();
-            engineVolume = i_EnginedMotorbike.EngineVolume;
-            electricMotorBikeDetails = string.Format("     The license Type is: {1}{0}     The engine volume is: {2}", Environment.NewLine, licenseTypeString, engineVolume);
-            Console.WriteLine(electricMotorBikeDetails);
-        }
-
-        private void printEnginedCarDetails(EnginedCar i_EnginedCar)
-        {
-            string carColor, electricCarDetails;
-            int numOfDoors;
-
-            carColor = i_EnginedCar.CarColor.ToString();
-            numOfDoors = i_EnginedCar.NumberOfDoors;
-            electricCarDetails = string.Format(@"      The car color is: {1}{0}      Number of doors: {2}", Environment.NewLine, carColor, numOfDoors);
-            Console.WriteLine(electricCarDetails);
-        }
-
-        private void printElectricVehicleDetails(ElectricVehicle i_ElectricVehicleToShowDetails)
-        {
-            float batteryLifeLeft, maximumBatteryLife;
-            string batteryLifeLeftString;
-
-            batteryLifeLeft = i_ElectricVehicleToShowDetails.BatteryLifeLeft;
-            maximumBatteryLife = i_ElectricVehicleToShowDetails.MaximumBatteryLife;
-            batteryLifeLeftString = string.Format("     Maximum battery life is: {1} hours{0}       Battery life left is: {2} hours", Environment.NewLine, maximumBatteryLife, batteryLifeLeft);
-            Console.WriteLine(batteryLifeLeftString);
-            if (i_ElectricVehicleToShowDetails is ElectricCar)
-            {
-                printElectricCarDetails(i_ElectricVehicleToShowDetails as ElectricCar);
-            }
-            else if (i_ElectricVehicleToShowDetails is ElectricMotorbike)
-            {
-                printElectricMotorbikeDetails(i_ElectricVehicleToShowDetails as ElectricMotorbike);
-            }
-        }
-
-        private void printElectricMotorbikeDetails(ElectricMotorbike i_ElectricMotorbike)
-        {
-            string electricMotorBikeDetails, licenseTypeString;
-            int engineVolume;
-
-            licenseTypeString = i_ElectricMotorbike.LicenseType.ToString();
-            engineVolume = i_ElectricMotorbike.EngineVolume;
-            electricMotorBikeDetails = string.Format(@"     The license Type is: {1}{0}     The engine volume is: {2}", Environment.NewLine, licenseTypeString, engineVolume);
-            Console.WriteLine(electricMotorBikeDetails);
-        }
-
-        private void printElectricCarDetails(ElectricCar i_ElectricCar)
-        {
-            string carColor, electricCarDetails;
-            int numOfDoors;
-
-            carColor = i_ElectricCar.CarColor.ToString();
-            numOfDoors = i_ElectricCar.NumberOfDoors;
-            electricCarDetails = string.Format("      The car color is: {1}{0}      Number of doors: {2}", Environment.NewLine, carColor, numOfDoors);
-            Console.WriteLine(electricCarDetails);
-        }
 
         private void printOwnerDetails(Customer i_CustomerToShowDetails)
         {
@@ -1079,7 +983,7 @@ Please enter valid name:"); ;
             tireCurrentPressure = i_CustomerToShowDetails.Vehicle.Tires[0].CurrentPressure;
             tireMaxPressure = i_CustomerToShowDetails.Vehicle.Tires[0].MaximumPressure;
             generalVehicleDetails = string.Format(@"         Vehicle Details{0}{0}      License number: {1}{0}      Model name: {2}{0}      Energy percentage left: {3}
-      Manufacturer name: {4}{0}      Current tire pressure: {5}{0}      Max tire pressure: {6}", Environment.NewLine, licenseNumber, modelName, energyPercentageLeft, tireManufacturerName, tireCurrentPressure, tireMaxPressure);
+      Manufacturer name: {4}{0}      Current tire pressure: {5}{0}      Maximum tire pressure: {6}", Environment.NewLine, licenseNumber, modelName, energyPercentageLeft, tireManufacturerName, tireCurrentPressure, tireMaxPressure);
             Console.WriteLine(generalVehicleDetails);
         }
 

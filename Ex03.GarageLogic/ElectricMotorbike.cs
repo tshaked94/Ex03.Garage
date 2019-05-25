@@ -45,5 +45,18 @@ namespace Ex03.GarageLogic
                 m_LicenseType = value;
             }
         }
+        public override List<KeyValuePair<string, string>> Inforamtion()
+        {
+            int numberOfAttributes = 4;
+            List<KeyValuePair<string, string>> informationList = new List<KeyValuePair<string, string>>(numberOfAttributes);
+
+            informationList.Add(new KeyValuePair<string, string>("Battery life left", string.Format("{0} hours", m_BatteryLifeLeft)));
+            informationList.Add(new KeyValuePair<string, string>("Maximum battery lifetime", string.Format("{0} hours", m_MaximumBatteryLife)));
+            informationList.Add(new KeyValuePair<string, string>("License type", Enum.GetName(typeof(Utilities.eMotorbikeLicenseType), (int)m_LicenseType)));
+            informationList.Add(new KeyValuePair<string, string>("Engine volume", m_EngineVolume.ToString()));
+
+            return informationList;
+        }
+
     }
 }

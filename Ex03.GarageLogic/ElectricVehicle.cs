@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    public class ElectricVehicle : Vehicle
+    public abstract class ElectricVehicle : Vehicle
     {
         protected float m_BatteryLifeLeft;
         protected float m_MaximumBatteryLife;

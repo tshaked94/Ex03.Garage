@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    public class Vehicle
+    public abstract class Vehicle
     {
         protected string m_ModelName;
         protected string m_LicenseNumber;
@@ -66,5 +66,7 @@ namespace Ex03.GarageLogic
             // TODO:Check if needed.
             return m_LicenseNumber.GetHashCode();
         }
+
+        public abstract List<KeyValuePair<string, string>> Inforamtion();
     }
 }

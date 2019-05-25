@@ -45,5 +45,18 @@ namespace Ex03.GarageLogic
                 m_LicenseType = value;
             }
         }
+        public override List<KeyValuePair<string, string>> Inforamtion()
+        {
+            int numberOfAttributes = 5;
+            List<KeyValuePair<string, string>> informationList = new List<KeyValuePair<string, string>>(numberOfAttributes);
+            informationList.Add(new KeyValuePair<string, string>("Fuel type", Enum.GetName(typeof(eFuelType), (int)m_FuelType)));
+            informationList.Add(new KeyValuePair<string, string>("Current fuel amount", string.Format("{0} liters", m_CurrentFuelAmount)));
+            informationList.Add(new KeyValuePair<string, string>("Maximum fuel amount", string.Format("{0} liters", m_MaximumFuelAmount)));
+            informationList.Add(new KeyValuePair<string, string>("License type", Enum.GetName(typeof(Utilities.eMotorbikeLicenseType), (int)m_LicenseType)));
+            informationList.Add(new KeyValuePair<string, string>("Engine volume", m_EngineVolume.ToString()));
+
+            return informationList;
+        }
+
     }
 }

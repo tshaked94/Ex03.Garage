@@ -48,5 +48,20 @@ namespace Ex03.GarageLogic
                 m_CargoVolume = value;
             }
         }
+        public override List<KeyValuePair<string, string>> Inforamtion()
+        {
+            int numberOfAttributes = 5;
+            List<KeyValuePair<string, string>> informationList = new List<KeyValuePair<string, string>>(numberOfAttributes);
+            string containsDangerousMaterials;
+
+            containsDangerousMaterials = v_IsContainingDangerousMaterials == true ? "Yes" : "No";
+            informationList.Add(new KeyValuePair<string, string>("Fuel type", Enum.GetName(typeof(eFuelType), (int)m_FuelType)));
+            informationList.Add(new KeyValuePair<string, string>("Current fuel amount", string.Format("{0} liters", m_CurrentFuelAmount)));
+            informationList.Add(new KeyValuePair<string, string>("Maximum fuel amount", string.Format("{0} liters", m_MaximumFuelAmount)));
+            informationList.Add(new KeyValuePair<string, string>("Contains dangerous materials?", containsDangerousMaterials));
+
+            return informationList;
+        }
+
     }
 }

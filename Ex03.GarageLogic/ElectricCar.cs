@@ -47,5 +47,19 @@ namespace Ex03.GarageLogic
                 m_CarColor = value;
             }
         }
+
+        public override List<KeyValuePair<string, string>> Inforamtion()
+        {
+            int numberOfAttributes = 4;
+            List<KeyValuePair<string, string>> informationList = new List<KeyValuePair<string, string>>(numberOfAttributes);
+
+            informationList.Add(new KeyValuePair<string, string>("Battery life left", string.Format("{0} hours", m_BatteryLifeLeft)));
+            informationList.Add(new KeyValuePair<string, string>("Maximum battery lifetime", string.Format("{0} hours", m_MaximumBatteryLife)));
+            informationList.Add(new KeyValuePair<string, string>("Car color", Enum.GetName(typeof(Utilities.eCarColor), (int)m_CarColor)));
+            informationList.Add(new KeyValuePair<string, string>("Number of doors", m_NumOfDoors.ToString()));
+
+            return informationList;
+        }
+
     }
 }

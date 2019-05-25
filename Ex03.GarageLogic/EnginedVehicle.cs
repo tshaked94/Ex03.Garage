@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    public class EnginedVehicle : Vehicle
+    public abstract class EnginedVehicle : Vehicle
     {
         public enum eFuelType { Soler = 1, Octan95, Octan96, Octan98};
 
