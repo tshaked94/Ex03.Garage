@@ -111,6 +111,7 @@ namespace Ex03.ConsoleUI
             bool isVehicleFound;
             string licenseNumber, ownerName, ownerPhoneNumber;
             VehicleAllocator.eVehicleTypes vehicleType;
+            VehicleAllocator vehicleAllocator;
             Vehicle vehicleCreated;
 
             licenseNumber = requestLicenseNumber();
@@ -122,9 +123,10 @@ namespace Ex03.ConsoleUI
             }
             else
             {
+                vehicleAllocator = new VehicleAllocator();
                 requestOwnerDetails(out ownerName, out ownerPhoneNumber);
                 vehicleType = requestVehicleTypeFromUser();
-                vehicleCreated = VehicleAllocator.MakeNewVehicle(vehicleType);
+                vehicleCreated = vehicleAllocator.MakeNewVehicle(vehicleType);
                 m_Garage.SetLicenseNumber(licenseNumber, vehicleCreated);
                 requestVehicleDetails(vehicleCreated);
                 m_Garage.AddNewCustomer(ownerName, ownerPhoneNumber, vehicleCreated);
@@ -884,8 +886,9 @@ Please enter valid name:");
                         
                         catch(ValueOutOfRangeException ex)
                         {
-                            Console.WriteLine("Invalid input, please enter a float number between {0} to {1} represents the amount of minutes to charge", ex.MinValue, ex.MaxValue);
+                            message = string.Format("Invalid input, please enter a float number between {0} to {1} represents the amount of minutes to charge", ex.MinValue, ex.MaxValue);
                             isUserChoiceValid = false;
+                            Console.WriteLine(message);
                         }
 
                     }

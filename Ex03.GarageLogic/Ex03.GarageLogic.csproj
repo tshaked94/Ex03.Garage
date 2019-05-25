@@ -48,7 +48,6 @@
     <Compile Include="EnginedVehicle.cs" />
     <Compile Include="Garage.cs" />
     <Compile Include="Customer.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Truck.cs" />
     <Compile Include="Utilities.cs" />
@@ -56,6 +55,12 @@
     <Compile Include="Vehicle.cs" />
     <Compile Include="Tire.cs" />
     <Compile Include="VehicleAllocator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\Desktop\ClassDiagram1.cd">
+      <Link>ClassDiagram1.cd</Link>
+    </None>
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -16,7 +16,7 @@ namespace Ex03.GarageLogic
         }
 
 
-        public static Vehicle MakeNewVehicle(eVehicleTypes vehicleType)
+        public Vehicle MakeNewVehicle(eVehicleTypes vehicleType)
         {
             Vehicle newVehicle = null;
 
