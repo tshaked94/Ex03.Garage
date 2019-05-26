@@ -61,12 +61,6 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public int HashCode()
-        {
-            // TODO:Check if needed.
-            return m_LicenseNumber.GetHashCode();
-        }
-
         public abstract List<KeyValuePair<string, string>> VehicleInformationByType();
     }
 }

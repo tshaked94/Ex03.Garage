@@ -6,6 +6,7 @@ namespace Ex03.GarageLogic
 {
     public abstract class Utilities
     {
+        public const int k_HundredInt = 100;
         public enum eMotorbikeLicenseType
         {
             A,
@@ -20,17 +21,6 @@ namespace Ex03.GarageLogic
             Blue,
             Black,
             Gray
-        }
-
-        public enum userChoice
-        {
-            AddNewVehicle = 1,
-            ShowListOfLicenseNumbers = 2,
-            ChangeVehicleStatus = 3,
-            InflateCarTiresToMaximum = 4,
-            FuelEnginedCar = 5,
-            ChargeElectricCar = 6,
-            ShowAllVehicleData = 7
         }
     }
 }

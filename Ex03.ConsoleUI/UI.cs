@@ -452,7 +452,6 @@ Please enter a number represents the number of doors");
         private Utilities.eCarColor requestCarColor()
         {
             // this method get car color from the user.
-            // TODO: list of strings of car colors and print it instead of 1.red....
             string carColorString;
             bool isUserChoiceValid;
             Utilities.eCarColor carColor;
@@ -1274,7 +1273,7 @@ Please enter valid name:");
             bool isValidInput;
             int userVeichleTypeInt, numberOfVeicleType;
 
-            StringBuilder vehicleTypes = new StringBuilder(100); // TODO: think other capacity, maybe const?
+            StringBuilder vehicleTypes = new StringBuilder(Utilities.k_HundredInt);
 
             numberOfVeicleType = 0;
 

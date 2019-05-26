@@ -77,7 +77,6 @@ namespace Ex03.GarageLogic
         {
             // this method set the car details according to the parameters recieved
             // at this stage we know that the vehicle is EnginedCar or ElectricCar
-            // TODO: check is as
             if(i_VehicleToSetDetails is EnginedCar)
             {
                 (i_VehicleToSetDetails as EnginedCar).CarColor = carColor;
@@ -124,7 +123,6 @@ namespace Ex03.GarageLogic
         {
             // this method set the motorbike details according to the parameters recieved
             // at this stage we know that the vehicle is EnginedMotorbike or ElectricMotorbike
-            // TODO: check is as
             if (i_VehicleToSetDetails is ElectricMotorbike)
             {
                 (i_VehicleToSetDetails as ElectricMotorbike).EngineVolume = i_EngineVolume;
@@ -185,8 +183,7 @@ namespace Ex03.GarageLogic
 
         public void FuelEnginedVehicle(string i_LicenseNumberOfVehicle, EnginedVehicle.eFuelType i_FuelType, float i_AmountOfFuelToAdd)
         {
-            // maybe to return a bool to ui if success or not and send message to user according to situation
-            // TODO: check is as part.
+            // this method get license number , fuel type and amount of fuel to add and refueling the vehicle
             Vehicle vehicleToFuel;
 
             vehicleToFuel = m_Customers[i_LicenseNumberOfVehicle.GetHashCode()].Vehicle;
@@ -195,8 +192,7 @@ namespace Ex03.GarageLogic
 
         public void ChargeElectricVehicle(string i_LicenseNumberOfVehicle, float i_AmountOfMinutesToCharge)
         {
-            // maybe to return a bool to ui if success or not and send message to user according to situation
-            // TODO: check is as part.
+            // this method get license number and amount of minutes to charge and charging the vehicle.
             Vehicle vehicleToCharge;
 
             vehicleToCharge = m_Customers[i_LicenseNumberOfVehicle.GetHashCode()].Vehicle;
